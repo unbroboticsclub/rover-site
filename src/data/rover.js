@@ -29,8 +29,7 @@ export const meetings = {
 export const stats = [
   { value: "60+", label: "Active Participants", body: "Students from across UNB designing CAD, writing firmware, and building system diagrams." },
   { value: "200+", label: "Hours of Combined Work", body: "Mechanical prototyping, design reviews, electrical architecture, and software development." },
-  { value: sapere.sponsorFunding, label: "Sponsor Funding", body: "Raised from our industry sponsors for the 2026 season." },
-  { value: "$5,430", label: "Endowment Funding", body: "Awarded by the UNB Engineering Endowment Fund." },
+  { value: sapere.sponsorFunding, label: "Sponsor & Partner Funding", body: "Contributed by our sponsors and partners toward Sapere's rover equipment." },
 ];
 
 // Lead positions we're currently recruiting for.

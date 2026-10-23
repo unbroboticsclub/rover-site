@@ -63,7 +63,7 @@ const gallery = [
   <!-- METRICS -->
   <section class="lg:p-8">
     <div class="px-8 py-12 mx-auto md:px-12 lg:px-16 xl:px-36 2xl:max-w-7xl">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-line/10 border-y border-line/10">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-line/10 border-y border-line/10">
         {stats.map((s) => (
           <div class="py-10 md:px-8 bg-page">
             <div class="text-4xl lg:text-5xl font-bold text-accent">{s.value}</div>
@@ -84,7 +84,7 @@ const gallery = [
           Sapere was made possible <span class="md:block text-subtle">by our sponsors</span>
         </h2>
         <p class="mt-4 text-sm text-muted">
-          Together they contributed {sapere.sponsorFunding} in sponsor funding to the {sapere.year} season.
+          Together our sponsors and partners contributed {sapere.sponsorFunding} toward rover equipment in {sapere.year}.
         </p>
       </div>
       <div class="mt-12 grid gap-4 grid-cols-2 md:grid-cols-3">
@@ -111,7 +111,7 @@ const gallery = [
             This year, we're looking for new sponsors.
           </h3>
           <p class="mt-4 text-sm text-muted max-w-2xl">
-            Last year our sponsors contributed {sapere.sponsorFunding} toward Sapere. As we build {currentRover},
+            Last year our sponsors and partners contributed {sapere.sponsorFunding} toward Sapere's rover equipment. As we build {currentRover},
             we're looking for new partners through sponsorship tiers or donations of electronics, PCB
             fabrication, filament, materials, software licenses, and tools.
           </p>
