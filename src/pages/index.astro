@@ -24,12 +24,11 @@ import rover1 from "@/assets/rover/rover.png";
             src={emblem}
             alt="UNB Rover Team emblem"
             width={600}
-            class="sr-only lg:not-sr-only lg:absolute top-1/2 -translate-y-1/2 rounded-full fade-in"
-            style="height: 300px; width: auto; right: 13%;"
+            class="sr-only lg:not-sr-only lg:absolute top-1/2 -translate-y-1/2 rounded-full fade-in w-auto lg:h-[250px] lg:right-[3%] xl:h-[300px] xl:right-[13%]"
             loading="eager"
           />
           <div class="max-w-xl">
-            <h1 class="text-3xl tracking-tight mt-6 font-light lg:text-4xl text-ink">
+            <h1 class="text-3xl tracking-tight mt-6 font-light lg:text-3xl xl:text-4xl text-ink">
               Project Iterum
               <span class="block text-accent">The Maritimes' first competition rover team.</span>
             </h1>
@@ -46,12 +45,12 @@ import rover1 from "@/assets/rover/rover.png";
 
         <!-- SLIDE 2 -->
         <div class="hero-slide py-24 lg:px-16 px-8 bg-gradient-to-b from-hero-from to-hero-to relative hidden" style="height: 480px;">
-          <div class="sr-only lg:not-sr-only lg:absolute top-1/2 -translate-y-1/2 overflow-hidden" style="right: 13%; border-radius: 1.5rem; height: 320px;">
-            <Image src={teamPhoto} alt="UNB Rover Team members with Sapere at CIRC 2026" width={720} loading="eager" class="fade-in" style="height: 100%; width: auto; object-fit: cover;" />
+          <div class="sr-only lg:not-sr-only lg:absolute top-1/2 -translate-y-1/2 overflow-hidden lg:left-[58%] lg:right-[3%] xl:left-[54%] xl:right-[5%]" style="border-radius: 1.5rem; height: 320px;">
+            <Image src={teamPhoto} alt="UNB Rover Team members with Sapere at CIRC 2026" width={720} loading="eager" class="fade-in" style="height: 100%; width: 100%; object-fit: cover;" />
           </div>
-          <div class="max-w-xl">
+          <div class="max-w-xl lg:max-w-[52%] xl:max-w-[48%]">
             <span class={tag}>Our first rover</span>
-            <h1 class="text-3xl tracking-tight font-light lg:text-4xl text-ink">
+            <h1 class="text-3xl tracking-tight font-light lg:text-3xl xl:text-4xl text-ink">
               Sapere competed at {competition.short} {sapere.year}
               <span class="block text-accent">{sapere.dates}.</span>
             </h1>
@@ -67,12 +66,12 @@ import rover1 from "@/assets/rover/rover.png";
 
         <!-- SLIDE 3 -->
         <div class="hero-slide py-24 lg:px-16 px-8 bg-gradient-to-b from-hero-from to-hero-to relative hidden" style="height: 480px;">
-          <div class="sr-only lg:not-sr-only lg:absolute top-1/2 -translate-y-1/2 overflow-hidden" style="right: 13%; border-radius: 1.5rem; height: 320px;">
-            <Image src={meeting3} alt="Rover design meeting" width={720} loading="eager" class="fade-in" style="height: 100%; width: auto; object-fit: cover; opacity: 0.9;" />
+          <div class="sr-only lg:not-sr-only lg:absolute top-1/2 -translate-y-1/2 overflow-hidden lg:left-[58%] lg:right-[3%] xl:left-[54%] xl:right-[5%]" style="border-radius: 1.5rem; height: 320px;">
+            <Image src={meeting3} alt="Rover design meeting" width={720} loading="eager" class="fade-in" style="height: 100%; width: 100%; object-fit: cover; opacity: 0.9;" />
           </div>
-          <div class="max-w-xl">
+          <div class="max-w-xl lg:max-w-[52%] xl:max-w-[48%]">
             <span class={tag}>Now Recruiting</span>
-            <h1 class="text-3xl tracking-tight font-light lg:text-4xl text-ink">
+            <h1 class="text-3xl tracking-tight font-light lg:text-3xl xl:text-4xl text-ink">
               Team leads wanted.
               <span class="block text-accent">Software, mechanical, electrical, and science.</span>
             </h1>
@@ -127,7 +126,7 @@ import rover1 from "@/assets/rover/rover.png";
       <div class="bg-gradient-to-b from-hero-from to-hero-to ring-1 ring-line/10 grid grid-cols-1 md:grid-cols-2 rounded-4xl p-8 lg:p-20 relative overflow-hidden">
         <div class="relative z-10">
           <span class="text-ink">What is Iterum?</span>
-          <h2 class="text-3xl mt-6 tracking-tight font-light lg:text-4xl text-ink">
+          <h2 class="text-3xl mt-6 tracking-tight font-light lg:text-3xl xl:text-4xl text-ink">
             A rover engineered
             <span class="block text-muted">from first principles.</span>
           </h2>
@@ -156,7 +155,7 @@ import rover1 from "@/assets/rover/rover.png";
     <div class="px-8 py-12 mx-auto md:px-12 lg:px-16 xl:px-36 2xl:max-w-7xl">
       <div class="max-w-xl mx-auto text-center">
         <span class="text-accent">FAQ</span>
-        <h2 class="text-3xl mt-6 tracking-tight font-light lg:text-4xl text-ink">
+        <h2 class="text-3xl mt-6 tracking-tight font-light lg:text-3xl xl:text-4xl text-ink">
           The answers to your <span class="md:block text-subtle">Frequent questions</span>
         </h2>
       </div>
@@ -182,7 +181,7 @@ import rover1 from "@/assets/rover/rover.png";
       <div class="relative isolate bg-gradient-to-b from-hero-from to-hero-to ring-1 ring-line/10 rounded-4xl px-6 py-12 sm:px-16 lg:px-24 lg:py-24 xl:flex xl:items-center xl:gap-x-12">
         <div class="mx-auto max-w-md text-center xl:mx-0 xl:flex-auto xl:text-left">
           <span class="text-accent font-mono text-xs tracking-widest uppercase">Now recruiting leads</span>
-          <h2 class="text-3xl mt-6 tracking-tight font-light lg:text-4xl text-ink">
+          <h2 class="text-3xl mt-6 tracking-tight font-light lg:text-3xl xl:text-4xl text-ink">
             Ready to join the Maritimes' first competition rover team?
           </h2>
           <p class="mt-4 text-base text-muted">
