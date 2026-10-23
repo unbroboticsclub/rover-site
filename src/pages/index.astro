@@ -2,39 +2,14 @@
 import { Image } from "astro:assets";
 import RoverLayout from "@/layouts/RoverLayout.astro";
 import {
-  MAIN_SITE, competition, meetings, stats, principles, subsystems, roles, faqs, sponsors,
+  MAIN_SITE, competition, sapere, roles, faqs, sponsors,
 } from "@/data/rover.js";
+import { btnPrimary, btnRed, tag } from "@/styles/classes.js";
 
 import emblem from "@/assets/emblem-round.png";
-import meeting1 from "@/assets/rover/Rover_Design_Meeting_1.jpeg";
 import meeting3 from "@/assets/rover/Rover_Design_Meeting_3.jpeg";
-import meeting from "@/assets/rover/roverprojectdesignmeeting.JPG";
 import teamPhoto from "@/assets/rover/circ2026/team-photo.jpg";
-import iterumBanner from "@/assets/rover/circ2026/iterum-sponsor-banner.jpg";
-import iterumSide from "@/assets/rover/circ2026/iterum-pit-side.jpg";
-import iterumFront from "@/assets/rover/circ2026/iterum-pit-front.jpg";
-import iterumWorkbench from "@/assets/rover/circ2026/iterum-pit-workbench.jpg";
-import sponsorBanner from "@/assets/rover/circ2026/sponsor-banner.jpg";
-
-const gallery = [
-  { src: teamPhoto, alt: "UNB Rover Team members with Iterum and the sponsor banner at CIRC 2026" },
-  { src: iterumFront, alt: "Iterum in the pits at CIRC 2026, electronics bay open" },
-  { src: iterumBanner, alt: "Iterum behind the UNB Robotics sponsor banner at CIRC 2026" },
-  { src: iterumSide, alt: "Iterum's six-wheel suspension, side view" },
-  { src: iterumWorkbench, alt: "Iterum at the team's workbench during CIRC 2026" },
-  { src: sponsorBanner, alt: "Thank you to our sponsors banner at CIRC 2026" },
-  { src: meeting3, alt: "Rover design meeting" },
-  { src: meeting1, alt: "Rover design meeting in Head Hall" },
-  { src: meeting, alt: "Rover project design session" },
-];
-
-// Shared button styles, matching unbrobotics.ca (inverts in day mode).
-const btnPrimary =
-  "text-sm py-2 px-4 border focus:ring-2 rounded-full border-transparent bg-ink hover:bg-ink/10 text-page hover:text-ink duration-200 focus:ring-offset-2 focus:ring-ink inline-flex items-center justify-center ring-1 ring-transparent";
-const btnRed =
-  "text-sm py-2 px-4 rounded-full bg-rover-red hover:bg-rover-red-light text-white font-semibold duration-200 inline-flex items-center justify-center";
-const tag =
-  "inline-block text-xs font-semibold tracking-widest uppercase text-accent border border-accent/30 bg-accent/10 px-3 py-1 rounded-full mb-6";
+import rover1 from "@/assets/rover/rover.png";
 ---
 
 <RoverLayout>
@@ -59,12 +34,12 @@ const tag =
               <span class="block text-accent">The Maritimes' first competition rover team.</span>
             </h1>
             <p class="text-ink mt-6 text-balance">
-              Iterum is a fully custom rover platform built by 60+ UNB students that competed in the
-              {competition.name}. Every subsystem — mechanical, electrical, and software — is designed
+              Iterum is this year's fully custom rover, being built by UNB students for the
+              {competition.name}. Every subsystem, from mechanical and electrical to software, is designed
               and built entirely by UNB students.
             </p>
             <div class="inline-flex flex-wrap items-center mt-8">
-              <a href="#build" class={btnPrimary}>Explore the Build</a>
+              <a href="#about" class={btnPrimary}>Learn More</a>
             </div>
           </div>
         </div>
@@ -72,20 +47,20 @@ const tag =
         <!-- SLIDE 2 -->
         <div class="hero-slide py-24 lg:px-16 px-8 bg-gradient-to-b from-hero-from to-hero-to relative hidden" style="height: 480px;">
           <div class="sr-only lg:not-sr-only lg:absolute top-1/2 -translate-y-1/2 overflow-hidden" style="right: 13%; border-radius: 1.5rem; height: 320px;">
-            <Image src={teamPhoto} alt="UNB Rover Team members with Iterum at CIRC 2026" width={720} loading="eager" class="fade-in" style="height: 100%; width: auto; object-fit: cover;" />
+            <Image src={teamPhoto} alt="UNB Rover Team members with Sapere at CIRC 2026" width={720} loading="eager" class="fade-in" style="height: 100%; width: auto; object-fit: cover;" />
           </div>
           <div class="max-w-xl">
-            <span class={tag}>{competition.status}</span>
+            <span class={tag}>Our first rover</span>
             <h1 class="text-3xl tracking-tight font-light lg:text-4xl text-ink">
-              Competed at {competition.short} {competition.year}
-              <span class="block text-accent">{competition.dates}.</span>
+              Sapere competed at {competition.short} {sapere.year}
+              <span class="block text-accent">{sapere.dates}.</span>
             </h1>
             <p class="text-ink mt-6 text-balance">
-              After clearing the qualifier round, we brought Iterum to the {competition.name},
+              Every year our rover gets a new name. Sapere, our first, took on the {competition.name},
               organized by {competition.organizer}.
             </p>
             <div class="inline-flex flex-wrap items-center mt-8">
-              <a href="#gallery" class={btnPrimary}>See the Photos</a>
+              <a href="/sapere" class={btnPrimary}>Meet Sapere</a>
             </div>
           </div>
         </div>
@@ -96,13 +71,13 @@ const tag =
             <Image src={meeting3} alt="Rover design meeting" width={720} loading="eager" class="fade-in" style="height: 100%; width: auto; object-fit: cover; opacity: 0.9;" />
           </div>
           <div class="max-w-xl">
-            <span class={tag}>Build Season</span>
+            <span class={tag}>Now Recruiting</span>
             <h1 class="text-3xl tracking-tight font-light lg:text-4xl text-ink">
-              Daily Evening Meetings
-              <span class="block text-accent">{meetings.season}.</span>
+              Team leads wanted.
+              <span class="block text-accent">Software, mechanical, electrical, and science.</span>
             </h1>
             <p class="text-ink mt-6 text-balance">
-              Iterum was built every weekday from {meetings.season}, with sessions running 5–8 PM in {meetings.where}.
+              We're currently recruiting leads to take Iterum from design to competition.
             </p>
             <div class="inline-flex flex-wrap items-center mt-8">
               <a href="#join" class={btnPrimary}>Join the Team</a>
@@ -131,7 +106,7 @@ const tag =
   <!-- SPONSOR LOGO STRIP -->
   <section class="lg:px-8 mt-6">
     <div class="mx-auto 2xl:max-w-7xl">
-      <p class="text-center text-xs font-semibold tracking-widest uppercase text-subtle mb-6">Proudly supported by</p>
+      <p class="text-center text-xs font-semibold tracking-widest uppercase text-subtle mb-6">Proudly supported in {sapere.year} by</p>
       <div class="relative overflow-hidden py-8">
         <div class="pointer-events-none absolute left-0 inset-y-0 w-20 z-10 bg-gradient-to-r from-page to-transparent"></div>
         <div class="pointer-events-none absolute right-0 inset-y-0 w-20 z-10 bg-gradient-to-l from-page to-transparent"></div>
@@ -157,107 +132,21 @@ const tag =
             <span class="block text-muted">from first principles.</span>
           </h2>
           <p class="mt-4 text-sm text-ink max-w-xl">
-            Iterum is a fully custom rover platform designed by the UNB Robotics Club for the
-            {competition.name}. We chose six core design principles governing reliability, durability,
-            and technical execution.
+            Iterum is this year's fully custom rover, designed by UNB Robotics for the
+            {competition.name}.
           </p>
           <p class="mt-4 text-sm text-ink max-w-xl">
-            After clearing the qualifier round, the team competed at {competition.short} {competition.year}
-            ({competition.dates}). Every subsystem from mechanical, electrical, and software was designed
-            and built entirely by UNB students.
+            Every year our rover gets a new name. Iterum follows <a href="/sapere" class="underline hover:text-accent">Sapere</a>,
+            our first rover, which competed at {competition.short} {sapere.year}. Every subsystem from mechanical,
+            electrical, and software is designed and built entirely by UNB students.
           </p>
         </div>
         <Image
-          src={iterumSide}
+          src={rover1}
           alt=""
           width={1200}
           class="mt-8 md:mt-0 rounded-3xl md:rounded-none md:absolute md:inset-y-0 md:right-0 md:w-3/5 md:h-full object-cover opacity-30 md:[mask-image:linear-gradient(to_right,transparent,black_45%)]"
         />
-      </div>
-    </div>
-  </section>
-
-  <!-- DESIGN PRINCIPLES -->
-  <section class="lg:p-8">
-    <div class="px-8 py-12 mx-auto md:px-12 lg:px-16 xl:px-36 2xl:max-w-7xl">
-      <div class="max-w-xl mx-auto text-center">
-        <span class="text-accent">Design Principles</span>
-        <h2 class="text-3xl mt-6 tracking-tight font-light lg:text-4xl text-ink">
-          Six rules that <span class="md:block text-subtle">shape every part</span>
-        </h2>
-      </div>
-      <div class="relative mx-auto bg-panel shadow-inset rounded-2xl md:rounded-[3rem] mt-12 p-8 md:p-20 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-        {principles.map(([title, body]) => (
-          <div>
-            <h3 class="text-ink text-lg font-medium">{title}</h3>
-            <p class="mt-2 text-sm text-subtle">{body}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- METRICS -->
-  <section class="lg:p-8">
-    <div class="px-8 py-12 mx-auto md:px-12 lg:px-16 xl:px-36 2xl:max-w-7xl">
-      <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-line/10 border-y border-line/10">
-        {stats.map((s) => (
-          <div class="py-10 md:px-10 first:md:pl-0">
-            <div class="text-4xl lg:text-5xl font-bold text-accent">{s.value}</div>
-            <div class="font-mono text-xs tracking-widest uppercase text-subtle mt-2">{s.label}</div>
-            <p class="mt-4 text-sm text-muted">{s.body}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- THE BUILD -->
-  <section id="build" class="lg:p-8 scroll-mt-24">
-    <div class="px-8 py-12 mx-auto md:px-12 lg:px-16 xl:px-36 2xl:max-w-7xl">
-      <div class="max-w-xl mx-auto text-center">
-        <span class="text-accent">The Build</span>
-        <h2 class="text-3xl mt-6 tracking-tight font-light lg:text-4xl text-ink">
-          Three subsystems. <span class="md:block text-subtle">One competition rover.</span>
-        </h2>
-      </div>
-      <div class="mt-12 grid gap-6 lg:grid-cols-3">
-        {subsystems.map((sub) => (
-          <div class="rounded-4xl ring-1 ring-line/10 bg-panel p-8 lg:p-10">
-            <h3 class="text-ink text-xl">{sub.title}</h3>
-            <ul class="mt-6 space-y-3">
-              {sub.items.map((item) => (
-                <li class="flex gap-2 text-sm text-muted">
-                  <span class="text-accent font-mono">→</span>{item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- GALLERY -->
-  <section id="gallery" class="lg:p-8 scroll-mt-24">
-    <div class="px-8 py-12 mx-auto md:px-12 lg:px-16 xl:px-36 2xl:max-w-7xl">
-      <div class="max-w-xl mx-auto text-center">
-        <span class="text-accent">Gallery</span>
-        <h2 class="text-3xl mt-6 tracking-tight font-light lg:text-4xl text-ink">
-          From the build <span class="md:block text-subtle">to CIRC {competition.year}</span>
-        </h2>
-      </div>
-      <div class="mt-12 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        {gallery.map((g) => (
-          <Image
-            src={g.src}
-            alt={g.alt}
-            width={800}
-            widths={[480, 800]}
-            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            class="w-full aspect-[4/3] object-cover rounded-3xl"
-          />
-        ))}
       </div>
     </div>
   </section>
@@ -292,12 +181,13 @@ const tag =
     <div class="px-8 py-12 lg:py-32 mx-auto md:px-12 lg:px-16 xl:px-36 2xl:max-w-7xl">
       <div class="relative isolate bg-gradient-to-b from-hero-from to-hero-to ring-1 ring-line/10 rounded-4xl px-6 py-12 sm:px-16 lg:px-24 lg:py-24 xl:flex xl:items-center xl:gap-x-12">
         <div class="mx-auto max-w-md text-center xl:mx-0 xl:flex-auto xl:text-left">
-          <span class="text-accent font-mono text-xs tracking-widest uppercase">Join Project Iterum</span>
+          <span class="text-accent font-mono text-xs tracking-widest uppercase">Now recruiting leads</span>
           <h2 class="text-3xl mt-6 tracking-tight font-light lg:text-4xl text-ink">
             Ready to join the Maritimes' first competition rover team?
           </h2>
           <p class="mt-4 text-base text-muted">
-            Everyone is welcome — no experience required. Apply on the club site and we'll get you connected with the right subsystem team.
+            We're currently recruiting leads for software, mechanical, electrical, and science. General members are
+            always welcome too, no experience required. Apply on the club site and we'll get you connected.
           </p>
           <div class="mt-8 flex flex-wrap gap-4 justify-center xl:justify-start">
             <a href={MAIN_SITE} class={btnPrimary}>Apply on unbrobotics.ca</a>

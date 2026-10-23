@@ -1,0 +1,174 @@
+---
+import { Image } from "astro:assets";
+import RoverLayout from "@/layouts/RoverLayout.astro";
+import { MAIN_SITE, competition, currentRover, sapere, stats, sponsors, roles } from "@/data/rover.js";
+import { btnPrimary, btnRed, tag } from "@/styles/classes.js";
+
+import teamPhoto from "@/assets/rover/circ2026/team-photo.jpg";
+import sapereBanner from "@/assets/rover/circ2026/sapere-sponsor-banner.jpg";
+import sapereSide from "@/assets/rover/circ2026/sapere-pit-side.jpg";
+import sapereFront from "@/assets/rover/circ2026/sapere-pit-front.jpg";
+import sapereWorkbench from "@/assets/rover/circ2026/sapere-pit-workbench.jpg";
+import sponsorBanner from "@/assets/rover/circ2026/sponsor-banner.jpg";
+import meeting1 from "@/assets/rover/Rover_Design_Meeting_1.jpeg";
+import meeting3 from "@/assets/rover/Rover_Design_Meeting_3.jpeg";
+import meeting from "@/assets/rover/roverprojectdesignmeeting.JPG";
+
+const gallery = [
+  { src: teamPhoto, alt: "UNB Rover Team members with Sapere and the sponsor banner at CIRC 2026" },
+  { src: sapereFront, alt: "Sapere in the pits at CIRC 2026, electronics bay open" },
+  { src: sapereBanner, alt: "Sapere behind the UNB Robotics sponsor banner at CIRC 2026" },
+  { src: sapereSide, alt: "Sapere's six-wheel suspension, side view" },
+  { src: sapereWorkbench, alt: "Sapere at the team's workbench during CIRC 2026" },
+  { src: sponsorBanner, alt: "Thank you to our sponsors banner at CIRC 2026" },
+  { src: meeting3, alt: "Sapere design meeting" },
+  { src: meeting1, alt: "Sapere design meeting in Head Hall" },
+  { src: meeting, alt: "Sapere design session" },
+];
+---
+
+<RoverLayout
+  title="Sapere | UNB Rover Team"
+  description={`Sapere was UNB Robotics' first rover, which competed at the ${sapere.year} ${competition.name}.`}
+>
+  <!-- HERO -->
+  <section class="lg:p-8 overflow-hidden mt-24">
+    <div class="mx-auto 2xl:max-w-7xl w-full rounded-[3rem] overflow-hidden bg-gradient-to-b from-hero-from to-hero-to py-16 lg:py-24 lg:px-16 px-8 grid gap-10 lg:grid-cols-2 items-center">
+      <div>
+        <span class={tag}>{sapere.year} · Our first rover</span>
+        <h1 class="text-3xl tracking-tight font-light lg:text-4xl text-ink">
+          Sapere
+          <span class="block text-accent">Where it all started.</span>
+        </h1>
+        <p class="text-ink mt-6 text-balance">
+          Every year our rover gets a new name. Sapere was the first, built by 60+ UNB students and
+          taken to the {competition.name} ({competition.short}), {sapere.dates}. This year we're
+          building its successor, {currentRover}.
+        </p>
+        <div class="inline-flex flex-wrap items-center gap-4 mt-8">
+          <a href="#sponsors" class={btnPrimary}>Our Sponsors</a>
+          <a href="/" class="text-sm text-ink hover:text-accent duration-200">Meet {currentRover} →</a>
+        </div>
+      </div>
+      <Image
+        src={teamPhoto}
+        alt="UNB Rover Team members with Sapere at CIRC 2026"
+        width={900}
+        loading="eager"
+        class="w-full aspect-[4/3] object-cover rounded-3xl"
+      />
+    </div>
+  </section>
+
+  <!-- METRICS -->
+  <section class="lg:p-8">
+    <div class="px-8 py-12 mx-auto md:px-12 lg:px-16 xl:px-36 2xl:max-w-7xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-line/10 border-y border-line/10">
+        {stats.map((s) => (
+          <div class="py-10 md:px-8 bg-page">
+            <div class="text-4xl lg:text-5xl font-bold text-accent">{s.value}</div>
+            <div class="font-mono text-xs tracking-widest uppercase text-subtle mt-2">{s.label}</div>
+            <p class="mt-4 text-sm text-muted">{s.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SPONSORS -->
+  <section id="sponsors" class="lg:p-8 scroll-mt-24">
+    <div class="px-8 py-12 mx-auto md:px-12 lg:px-16 xl:px-36 2xl:max-w-7xl">
+      <div class="max-w-xl mx-auto text-center">
+        <span class="text-accent">Sponsors</span>
+        <h2 class="text-3xl mt-6 tracking-tight font-light lg:text-4xl text-ink">
+          Sapere was made possible <span class="md:block text-subtle">by our sponsors</span>
+        </h2>
+        <p class="mt-4 text-sm text-muted">
+          Together they contributed {sapere.sponsorFunding} in sponsor funding to the {sapere.year} season.
+        </p>
+      </div>
+      <div class="mt-12 grid gap-4 grid-cols-2 md:grid-cols-3">
+        {sponsors.map((s) => (
+          <a
+            href={s.url}
+            target="_blank"
+            rel="noopener"
+            title={s.name}
+            class="group rounded-3xl bg-white ring-1 ring-line/10 p-6 flex flex-col items-center justify-between gap-4 aspect-square">
+            <div class="grow flex items-center justify-center w-full">
+              <img src={s.logo} alt={s.name} class="max-h-24 w-auto object-contain" />
+            </div>
+            <span class="text-xs font-medium text-neutral-500 group-hover:text-neutral-900">{s.name} ↗</span>
+          </a>
+        ))}
+      </div>
+
+      <!-- New sponsors callout -->
+      <div class="mt-12 rounded-4xl ring-1 ring-line/10 bg-gradient-to-b from-hero-from to-hero-to p-8 lg:p-16 grid gap-8 lg:grid-cols-[1fr_auto] items-center">
+        <div>
+          <span class={tag}>Now seeking sponsors</span>
+          <h3 class="text-2xl lg:text-3xl tracking-tight font-light text-ink">
+            This year, we're looking for new sponsors.
+          </h3>
+          <p class="mt-4 text-sm text-muted max-w-2xl">
+            Last year our sponsors contributed {sapere.sponsorFunding} toward Sapere. As we build {currentRover},
+            we're looking for new partners through sponsorship tiers or donations of electronics, PCB
+            fabrication, filament, materials, software licenses, and tools.
+          </p>
+        </div>
+        <a href={`${MAIN_SITE}/sponsor`} class={btnRed}>Become a Sponsor</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" class="lg:p-8 scroll-mt-24">
+    <div class="px-8 py-12 mx-auto md:px-12 lg:px-16 xl:px-36 2xl:max-w-7xl">
+      <div class="max-w-xl mx-auto text-center">
+        <span class="text-accent">Gallery</span>
+        <h2 class="text-3xl mt-6 tracking-tight font-light lg:text-4xl text-ink">
+          From the build <span class="md:block text-subtle">to {competition.short} {sapere.year}</span>
+        </h2>
+      </div>
+      <div class="mt-12 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        {gallery.map((g) => (
+          <Image
+            src={g.src}
+            alt={g.alt}
+            width={800}
+            widths={[480, 800]}
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            class="w-full aspect-[4/3] object-cover rounded-3xl"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- RECRUITING -->
+  <section class="lg:p-8">
+    <div class="px-8 py-12 lg:pb-32 mx-auto md:px-12 lg:px-16 xl:px-36 2xl:max-w-7xl">
+      <div class="rounded-4xl ring-1 ring-line/10 bg-panel px-6 py-12 sm:px-16 lg:px-24 lg:py-20 xl:flex xl:items-center xl:gap-x-12">
+        <div class="mx-auto max-w-md text-center xl:mx-0 xl:flex-auto xl:text-left">
+          <span class="text-accent font-mono text-xs tracking-widest uppercase">Now recruiting leads</span>
+          <h2 class="text-3xl mt-6 tracking-tight font-light lg:text-4xl text-ink">
+            Help lead {currentRover}.
+          </h2>
+          <p class="mt-4 text-base text-muted">
+            We're currently recruiting leads for software, mechanical, electrical, and science.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4 justify-center xl:justify-start">
+            <a href={MAIN_SITE} class={btnPrimary}>Apply on unbrobotics.ca</a>
+          </div>
+        </div>
+        <div class="mt-12 xl:mt-0 mx-auto max-w-md xl:w-1/2 space-y-3">
+          {roles.map((role) => (
+            <div class="flex items-center gap-2 text-sm text-muted font-mono">
+              <span class="text-accent">→</span> {role}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</RoverLayout>

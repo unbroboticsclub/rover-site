@@ -1,6 +1,6 @@
 # rover.unbrobotics.ca
 
-Site for the UNB Robotics Club Rover Project. Separate Astro project from the main site in `../frontend`, sharing its Tailwind theme.
+Site for the UNB Robotics Rover Project. Separate Astro project from the main site in `../frontend`, sharing its Tailwind theme.
 
 - `/` – public project page. Text lives in `src/data/rover.js`; photos in `src/assets/rover/` (Astro resizes them to WebP at build time).
 - Colours come from the UNB Rover Team emblem (`src/assets/emblem.png`) and are defined once in `tailwind.config.cjs` under `rover`.

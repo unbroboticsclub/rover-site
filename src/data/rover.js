@@ -7,9 +7,16 @@ export const competition = {
   name: "Canadian International Rover Challenge",
   short: "CIRC",
   organizer: "CSTAG",
+};
+
+// Every year the rover gets a new name. Sapere was the first.
+export const currentRover = "Iterum";
+
+export const sapere = {
+  name: "Sapere",
   year: 2026,
   dates: "August 7–10, 2026",
-  status: "Competed",
+  sponsorFunding: "$8,690",
 };
 
 export const meetings = {
@@ -18,70 +25,32 @@ export const meetings = {
   where: "Head Hall H214",
 };
 
+// Sapere's 2026 season.
 export const stats = [
   { value: "60+", label: "Active Participants", body: "Students from across UNB designing CAD, writing firmware, and building system diagrams." },
   { value: "200+", label: "Hours of Combined Work", body: "Mechanical prototyping, design reviews, electrical architecture, and software development." },
-  { value: "$5,430", label: "Funding Secured", body: "Awarded by the UNB Engineering Endowment Fund." },
+  { value: sapere.sponsorFunding, label: "Sponsor Funding", body: "Raised from our industry sponsors for the 2026 season." },
+  { value: "$5,430", label: "Endowment Funding", body: "Awarded by the UNB Engineering Endowment Fund." },
 ];
 
-export const principles = [
-  ["Zone Division", "Decentralized subsystems — one fault can't cascade."],
-  ["System Design Engineering", "MIT 16.842 methodology with rigorous design reviews."],
-  ["Limit COTS Parts", "Custom interconnects, chassis, and instrumentation."],
-  ["Design for Serviceability", "Quick-release interconnects on all critical components."],
-  ["HIL Testing", "Hardware-in-the-Loop validates field performance."],
-  ["Rapid Iteration", "CAD and EDA toolchains with robust version control."],
-];
-
-export const subsystems = [
-  {
-    title: "Mechanical",
-    items: [
-      "Fusion 360 models complete: arm, chassis, wheels",
-      "Custom rocker-bogie suspension geometry",
-      "Virtual LiDAR & stereo camera arrays designed",
-      "Lightweight, waterproof low-cost frame",
-      "Gasketed airflow for Nvidia Orin GX thermal control",
-    ],
-  },
-  {
-    title: "Electrical",
-    items: [
-      "7-Zone decentralized architecture",
-      "24V 72Ah LiFePO4 + Smart BMS (8S 100A)",
-      "Hardware fail-safes & transient suppression",
-      "IP67-rated ruggedized interconnects",
-      "Mac mini M4 Pro + Nvidia compute backbone",
-    ],
-  },
-  {
-    title: "Software",
-    items: [
-      "Hard real-time scheduling (time-triggered cycle)",
-      "Static resource allocation — no mission-critical starvation",
-      "Envelope protection blocks unsafe actuation",
-      "Fixed-size periodic data packets, no latency spikes",
-      "Automatic fail-safe reversion on timing violations",
-    ],
-  },
-];
-
+// Lead positions we're currently recruiting for.
 export const roles = [
-  "Mechanical — chassis, suspension, robotic arm",
-  "Electrical — power systems, sensors, wiring",
-  "Software — autonomy, navigation, firmware",
-  "Science — life detection, geology sampling",
+  "Software Lead: autonomy, navigation, firmware",
+  "Mechanical Lead: chassis, suspension, robotic arm",
+  "Electrical Lead: power systems, sensors, wiring",
+  "Science Lead: life detection, geology sampling",
 ];
 
 export const faqs = [
   {
     question: "What is Project Iterum?",
     answer:
-      "Iterum is a fully custom rover platform designed and built by the UNB Robotics Club for the Canadian International Rover Challenge. Every subsystem — mechanical, electrical, and software — is built entirely by UNB students.",
+      "Iterum is this year's fully custom rover, designed and built by UNB Robotics for the Canadian International Rover Challenge. Every subsystem, from mechanical and electrical to software, is built entirely by UNB students.",
   },
   {
-    question: "Has Iterum competed yet?",
-    answer: `Yes. After clearing the qualifier round, Iterum competed at CIRC ${competition.year}, held ${competition.dates} and organized by ${competition.organizer}.`,
+    question: "Is the team recruiting?",
+    answer:
+      "Yes! We're currently recruiting leads for software, mechanical, electrical, and science. General members are always welcome too.",
   },
   {
     question: "Who can join the rover team?",
@@ -95,12 +64,12 @@ export const faqs = [
   },
   {
     question: "When and where does the team meet?",
-    answer: `During the ${competition.year} build season (${meetings.season}) we met ${meetings.when.toLowerCase()} in ${meetings.where}. Follow @unbrobotics for next season's schedule.`,
+    answer: `During the ${sapere.year} build season (${meetings.season}) we met ${meetings.when.toLowerCase()} in ${meetings.where}. Follow @unbrobotics for next season's schedule.`,
   },
   {
     question: "How can my company support Iterum?",
     answer:
-      "We offer sponsorship tiers and also welcome donations of electronics, PCB fabrication, 3D printing filament, structural materials, software licenses, and engineering tools. See the sponsorship page on unbrobotics.ca.",
+      "This year we're looking for new sponsors. We offer sponsorship tiers and also welcome donations of electronics, PCB fabrication, 3D printing filament, structural materials, software licenses, and engineering tools. See the sponsorship page on unbrobotics.ca.",
   },
 ];
 
@@ -110,4 +79,5 @@ export const sponsors = [
   { name: "Viathan", logo: "/images/sponsors/viathan2png.png", url: "https://viathanwater.com/", height: "6rem" },
   { name: "Xsens", logo: "/images/sponsors/xsens.png", url: "https://www.xsens.com/", height: "6rem" },
   { name: "Basicmicro", logo: "/images/sponsors/basicmicro.jpg", url: "https://www.basicmicro.com/", height: "6rem" },
+  { name: "NB Power", logo: "/images/sponsors/nbpower.png", url: "https://www.nbpower.com/", height: "6rem" },
 ];
