@@ -1,0 +1,60 @@
+---
+import { MAIN_SITE } from "@/data/rover.js";
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-page lg:p-8">
+  <div class="items-center px-8 mx-auto py-12 lg:py-24 md:px-12 lg:px-16 xl:px-36 2xl:max-w-7xl">
+    <!-- Navigation and Club Information -->
+    <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+      <div class="text-ink">
+        <span class="text-lg inline-flex items-center font-semibold lg:text-2xl italic">
+          UNB Rover Team
+        </span>
+      </div>
+      <div class="grid grid-cols-2 gap-8 xl:col-span-2 text-subtle text-xs mt-8 xl:mt-0">
+        <div class="md:grid md:grid-cols-2 md:gap-8">
+          <div>
+            <h3 class="text-ink text-sm">Navigation</h3>
+            <ul role="list" class="mt-4 space-y-2">
+              <li><a href="/#about" class="hover:text-ink">About</a></li>
+              <li><a href="/#build" class="hover:text-ink">The Build</a></li>
+              <li><a href="/#gallery" class="hover:text-ink">Gallery</a></li>
+              <li><a href="/#faq" class="hover:text-ink">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="mt-12 md:mt-0">
+            <h3 class="text-ink text-sm">UNB Robotics Club</h3>
+            <ul role="list" class="mt-4 space-y-2">
+              <li><a href={MAIN_SITE} class="hover:text-ink">Main Site</a></li>
+              <li><a href={`${MAIN_SITE}/sponsor`} class="hover:text-ink">Sponsor Us</a></li>
+              <li><a href={`${MAIN_SITE}/contact`} class="hover:text-ink">Contact Us</a></li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-ink text-sm">Socials</h3>
+          <ul role="list" class="mt-4 space-y-2">
+            <li><a href="https://www.instagram.com/unbrobotics" class="hover:text-ink">Instagram</a></li>
+            <li><a href="https://www.linkedin.com/company/unb-robotics-club/" class="hover:text-ink">LinkedIn</a></li>
+            <li><a href="https://github.com/unbroboticsclub" class="hover:text-ink">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <hr class="border-line/5 my-8" />
+
+    <!-- Terms, Privacy, and Copyright -->
+    <div class="flex flex-col lg:flex-row lg:justify-between items-center text-subtle text-xs">
+      <nav class="flex flex-col lg:flex-row gap-y-2 gap-x-8">
+        <a href={`${MAIN_SITE}/terms`} class="hover:text-ink">Terms of Use</a>
+        <a href={`${MAIN_SITE}/privacy`} class="hover:text-ink">Privacy Policy</a>
+      </nav>
+      <section class="mt-6 lg:mt-0">
+        <p class="text-sm">© {year} UNB Robotics Club. All rights reserved.</p>
+      </section>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rover.unbrobotics.ca/sitemap-index.xml

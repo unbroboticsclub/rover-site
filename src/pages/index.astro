@@ -1,0 +1,404 @@
+---
+import { Image } from "astro:assets";
+import RoverLayout from "@/layouts/RoverLayout.astro";
+import {
+  MAIN_SITE, competition, meetings, stats, principles, subsystems, roles, faqs, sponsors,
+} from "@/data/rover.js";
+
+import emblem from "@/assets/emblem-round.png";
+import meeting1 from "@/assets/rover/Rover_Design_Meeting_1.jpeg";
+import meeting3 from "@/assets/rover/Rover_Design_Meeting_3.jpeg";
+import meeting from "@/assets/rover/roverprojectdesignmeeting.JPG";
+import teamPhoto from "@/assets/rover/circ2026/team-photo.jpg";
+import iterumBanner from "@/assets/rover/circ2026/iterum-sponsor-banner.jpg";
+import iterumSide from "@/assets/rover/circ2026/iterum-pit-side.jpg";
+import iterumFront from "@/assets/rover/circ2026/iterum-pit-front.jpg";
+import iterumWorkbench from "@/assets/rover/circ2026/iterum-pit-workbench.jpg";
+import sponsorBanner from "@/assets/rover/circ2026/sponsor-banner.jpg";
+
+const gallery = [
+  { src: teamPhoto, alt: "UNB Rover Team members with Iterum and the sponsor banner at CIRC 2026" },
+  { src: iterumFront, alt: "Iterum in the pits at CIRC 2026, electronics bay open" },
+  { src: iterumBanner, alt: "Iterum behind the UNB Robotics sponsor banner at CIRC 2026" },
+  { src: iterumSide, alt: "Iterum's six-wheel suspension, side view" },
+  { src: iterumWorkbench, alt: "Iterum at the team's workbench during CIRC 2026" },
+  { src: sponsorBanner, alt: "Thank you to our sponsors banner at CIRC 2026" },
+  { src: meeting3, alt: "Rover design meeting" },
+  { src: meeting1, alt: "Rover design meeting in Head Hall" },
+  { src: meeting, alt: "Rover project design session" },
+];
+
+// Shared button styles, matching unbrobotics.ca (inverts in day mode).
+const btnPrimary =
+  "text-sm py-2 px-4 border focus:ring-2 rounded-full border-transparent bg-ink hover:bg-ink/10 text-page hover:text-ink duration-200 focus:ring-offset-2 focus:ring-ink inline-flex items-center justify-center ring-1 ring-transparent";
+const btnRed =
+  "text-sm py-2 px-4 rounded-full bg-rover-red hover:bg-rover-red-light text-white font-semibold duration-200 inline-flex items-center justify-center";
+const tag =
+  "inline-block text-xs font-semibold tracking-widest uppercase text-accent border border-accent/30 bg-accent/10 px-3 py-1 rounded-full mb-6";
+---
+
+<RoverLayout>
+  <!-- HERO SLIDESHOW -->
+  <section class="lg:p-8 overflow-hidden mt-24">
+    <div class="mx-auto 2xl:max-w-7xl w-full rounded-[3rem] overflow-hidden relative">
+      <div id="hero-slides" class="relative">
+
+        <!-- SLIDE 1 -->
+        <div class="hero-slide py-24 lg:px-16 px-8 bg-gradient-to-b from-hero-from to-hero-to relative" style="height: 480px;">
+          <Image
+            src={emblem}
+            alt="UNB Rover Team emblem"
+            width={600}
+            class="sr-only lg:not-sr-only lg:absolute top-1/2 -translate-y-1/2 rounded-full fade-in"
+            style="height: 300px; width: auto; right: 13%;"
+            loading="eager"
+          />
+          <div class="max-w-xl">
+            <h1 class="text-3xl tracking-tight mt-6 font-light lg:text-4xl text-ink">
+              Project Iterum
+              <span class="block text-accent">The Maritimes' first competition rover team.</span>
+            </h1>
+            <p class="text-ink mt-6 text-balance">
+              Iterum is a fully custom rover platform built by 60+ UNB students that competed in the
+              {competition.name}. Every subsystem — mechanical, electrical, and software — is designed
+              and built entirely by UNB students.
+            </p>
+            <div class="inline-flex flex-wrap items-center mt-8">
+              <a href="#build" class={btnPrimary}>Explore the Build</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 2 -->
+        <div class="hero-slide py-24 lg:px-16 px-8 bg-gradient-to-b from-hero-from to-hero-to relative hidden" style="height: 480px;">
+          <div class="sr-only lg:not-sr-only lg:absolute top-1/2 -translate-y-1/2 overflow-hidden" style="right: 13%; border-radius: 1.5rem; height: 320px;">
+            <Image src={teamPhoto} alt="UNB Rover Team members with Iterum at CIRC 2026" width={720} loading="eager" class="fade-in" style="height: 100%; width: auto; object-fit: cover;" />
+          </div>
+          <div class="max-w-xl">
+            <span class={tag}>{competition.status}</span>
+            <h1 class="text-3xl tracking-tight font-light lg:text-4xl text-ink">
+              Competed at {competition.short} {competition.year}
+              <span class="block text-accent">{competition.dates}.</span>
+            </h1>
+            <p class="text-ink mt-6 text-balance">
+              After clearing the qualifier round, we brought Iterum to the {competition.name},
+              organized by {competition.organizer}.
+            </p>
+            <div class="inline-flex flex-wrap items-center mt-8">
+              <a href="#gallery" class={btnPrimary}>See the Photos</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 3 -->
+        <div class="hero-slide py-24 lg:px-16 px-8 bg-gradient-to-b from-hero-from to-hero-to relative hidden" style="height: 480px;">
+          <div class="sr-only lg:not-sr-only lg:absolute top-1/2 -translate-y-1/2 overflow-hidden" style="right: 13%; border-radius: 1.5rem; height: 320px;">
+            <Image src={meeting3} alt="Rover design meeting" width={720} loading="eager" class="fade-in" style="height: 100%; width: auto; object-fit: cover; opacity: 0.9;" />
+          </div>
+          <div class="max-w-xl">
+            <span class={tag}>Build Season</span>
+            <h1 class="text-3xl tracking-tight font-light lg:text-4xl text-ink">
+              Daily Evening Meetings
+              <span class="block text-accent">{meetings.season}.</span>
+            </h1>
+            <p class="text-ink mt-6 text-balance">
+              Iterum was built every weekday from {meetings.season}, with sessions running 5–8 PM in {meetings.where}.
+            </p>
+            <div class="inline-flex flex-wrap items-center mt-8">
+              <a href="#join" class={btnPrimary}>Join the Team</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arrows + Dots -->
+      <div class="absolute bottom-6 left-0 right-0 flex items-center justify-center gap-4">
+        <button id="hero-prev" type="button" aria-label="Previous slide" class="w-8 h-8 rounded-full bg-ink/10 hover:bg-ink/20 text-ink flex items-center justify-center transition-all duration-200 border border-line/20">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <div id="hero-dots" class="flex gap-2"></div>
+        <button id="hero-next" type="button" aria-label="Next slide" class="w-8 h-8 rounded-full bg-ink/10 hover:bg-ink/20 text-ink flex items-center justify-center transition-all duration-200 border border-line/20">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPONSOR LOGO STRIP -->
+  <section class="lg:px-8 mt-6">
+    <div class="mx-auto 2xl:max-w-7xl">
+      <p class="text-center text-xs font-semibold tracking-widest uppercase text-subtle mb-6">Proudly supported by</p>
+      <div class="relative overflow-hidden py-8">
+        <div class="pointer-events-none absolute left-0 inset-y-0 w-20 z-10 bg-gradient-to-r from-page to-transparent"></div>
+        <div class="pointer-events-none absolute right-0 inset-y-0 w-20 z-10 bg-gradient-to-l from-page to-transparent"></div>
+        <div id="logo-track" class="flex items-center gap-20">
+          {sponsors.map((s) => (
+            <a href={s.url} target="_blank" rel="noopener" class="shrink-0 rounded-2xl dark:bg-white/90 dark:px-5 dark:py-3" title={s.name}>
+              <img src={s.logo} alt={s.name} style={`height:${s.height}`} class="object-contain opacity-75 hover:opacity-100 transition-opacity" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="lg:p-8 scroll-mt-24">
+    <div class="mx-auto 2xl:max-w-7xl py-24 lg:px-16 md:px-12 px-8 xl:px-40 relative w-full">
+      <div class="bg-gradient-to-b from-hero-from to-hero-to ring-1 ring-line/10 grid grid-cols-1 md:grid-cols-2 rounded-4xl p-8 lg:p-20 relative overflow-hidden">
+        <div class="relative z-10">
+          <span class="text-ink">What is Iterum?</span>
+          <h2 class="text-3xl mt-6 tracking-tight font-light lg:text-4xl text-ink">
+            A rover engineered
+            <span class="block text-muted">from first principles.</span>
+          </h2>
+          <p class="mt-4 text-sm text-ink max-w-xl">
+            Iterum is a fully custom rover platform designed by the UNB Robotics Club for the
+            {competition.name}. We chose six core design principles governing reliability, durability,
+            and technical execution.
+          </p>
+          <p class="mt-4 text-sm text-ink max-w-xl">
+            After clearing the qualifier round, the team competed at {competition.short} {competition.year}
+            ({competition.dates}). Every subsystem from mechanical, electrical, and software was designed
+            and built entirely by UNB students.
+          </p>
+        </div>
+        <Image
+          src={iterumSide}
+          alt=""
+          width={1200}
+          class="mt-8 md:mt-0 rounded-3xl md:rounded-none md:absolute md:inset-y-0 md:right-0 md:w-3/5 md:h-full object-cover opacity-30 md:[mask-image:linear-gradient(to_right,transparent,black_45%)]"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- DESIGN PRINCIPLES -->
+  <section class="lg:p-8">
+    <div class="px-8 py-12 mx-auto md:px-12 lg:px-16 xl:px-36 2xl:max-w-7xl">
+      <div class="max-w-xl mx-auto text-center">
+        <span class="text-accent">Design Principles</span>
+        <h2 class="text-3xl mt-6 tracking-tight font-light lg:text-4xl text-ink">
+          Six rules that <span class="md:block text-subtle">shape every part</span>
+        </h2>
+      </div>
+      <div class="relative mx-auto bg-panel shadow-inset rounded-2xl md:rounded-[3rem] mt-12 p-8 md:p-20 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        {principles.map(([title, body]) => (
+          <div>
+            <h3 class="text-ink text-lg font-medium">{title}</h3>
+            <p class="mt-2 text-sm text-subtle">{body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- METRICS -->
+  <section class="lg:p-8">
+    <div class="px-8 py-12 mx-auto md:px-12 lg:px-16 xl:px-36 2xl:max-w-7xl">
+      <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-line/10 border-y border-line/10">
+        {stats.map((s) => (
+          <div class="py-10 md:px-10 first:md:pl-0">
+            <div class="text-4xl lg:text-5xl font-bold text-accent">{s.value}</div>
+            <div class="font-mono text-xs tracking-widest uppercase text-subtle mt-2">{s.label}</div>
+            <p class="mt-4 text-sm text-muted">{s.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- THE BUILD -->
+  <section id="build" class="lg:p-8 scroll-mt-24">
+    <div class="px-8 py-12 mx-auto md:px-12 lg:px-16 xl:px-36 2xl:max-w-7xl">
+      <div class="max-w-xl mx-auto text-center">
+        <span class="text-accent">The Build</span>
+        <h2 class="text-3xl mt-6 tracking-tight font-light lg:text-4xl text-ink">
+          Three subsystems. <span class="md:block text-subtle">One competition rover.</span>
+        </h2>
+      </div>
+      <div class="mt-12 grid gap-6 lg:grid-cols-3">
+        {subsystems.map((sub) => (
+          <div class="rounded-4xl ring-1 ring-line/10 bg-panel p-8 lg:p-10">
+            <h3 class="text-ink text-xl">{sub.title}</h3>
+            <ul class="mt-6 space-y-3">
+              {sub.items.map((item) => (
+                <li class="flex gap-2 text-sm text-muted">
+                  <span class="text-accent font-mono">→</span>{item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" class="lg:p-8 scroll-mt-24">
+    <div class="px-8 py-12 mx-auto md:px-12 lg:px-16 xl:px-36 2xl:max-w-7xl">
+      <div class="max-w-xl mx-auto text-center">
+        <span class="text-accent">Gallery</span>
+        <h2 class="text-3xl mt-6 tracking-tight font-light lg:text-4xl text-ink">
+          From the build <span class="md:block text-subtle">to CIRC {competition.year}</span>
+        </h2>
+      </div>
+      <div class="mt-12 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        {gallery.map((g) => (
+          <Image
+            src={g.src}
+            alt={g.alt}
+            width={800}
+            widths={[480, 800]}
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            class="w-full aspect-[4/3] object-cover rounded-3xl"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="lg:p-8 scroll-mt-24">
+    <div class="px-8 py-12 mx-auto md:px-12 lg:px-16 xl:px-36 2xl:max-w-7xl">
+      <div class="max-w-xl mx-auto text-center">
+        <span class="text-accent">FAQ</span>
+        <h2 class="text-3xl mt-6 tracking-tight font-light lg:text-4xl text-ink">
+          The answers to your <span class="md:block text-subtle">Frequent questions</span>
+        </h2>
+      </div>
+      <div class="relative mx-auto bg-panel shadow-inset divide-y divide-line/10 p-6 md:p-20 rounded-2xl md:rounded-[3rem] mt-12">
+        {faqs.map((faq) => (
+          <details class="group cursor-pointer">
+            <summary class="flex items-center justify-between w-full py-6 text-left select-none font-medium text-ink text-lg">
+              {faq.question}
+              <svg class="size-5 shrink-0 ml-4 duration-300 ease-out text-accent transform group-open:-rotate-45" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+              </svg>
+            </summary>
+            <div class="py-4 pt-2 text-subtle">{faq.answer}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN -->
+  <section id="join" class="lg:p-8 scroll-mt-24">
+    <div class="px-8 py-12 lg:py-32 mx-auto md:px-12 lg:px-16 xl:px-36 2xl:max-w-7xl">
+      <div class="relative isolate bg-gradient-to-b from-hero-from to-hero-to ring-1 ring-line/10 rounded-4xl px-6 py-12 sm:px-16 lg:px-24 lg:py-24 xl:flex xl:items-center xl:gap-x-12">
+        <div class="mx-auto max-w-md text-center xl:mx-0 xl:flex-auto xl:text-left">
+          <span class="text-accent font-mono text-xs tracking-widest uppercase">Join Project Iterum</span>
+          <h2 class="text-3xl mt-6 tracking-tight font-light lg:text-4xl text-ink">
+            Ready to join the Maritimes' first competition rover team?
+          </h2>
+          <p class="mt-4 text-base text-muted">
+            Everyone is welcome — no experience required. Apply on the club site and we'll get you connected with the right subsystem team.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4 justify-center xl:justify-start">
+            <a href={MAIN_SITE} class={btnPrimary}>Apply on unbrobotics.ca</a>
+            <a href={`${MAIN_SITE}/sponsor`} class={btnRed}>Sponsor Iterum</a>
+          </div>
+        </div>
+        <div class="mt-12 xl:mt-0 mx-auto max-w-md xl:w-1/2 space-y-3">
+          {roles.map((role) => (
+            <div class="flex items-center gap-2 text-sm text-muted font-mono">
+              <span class="text-accent">→</span> {role}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</RoverLayout>
+
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .fade-in {
+    animation: fadeIn 2s ease-in-out forwards;
+    opacity: 0;
+  }
+  .hero-slide {
+    transition: opacity 0.5s ease;
+  }
+  @keyframes logoScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(var(--logo-shift, -50%)); }
+  }
+  #logo-track.scrolling {
+    animation: logoScroll 20s linear infinite;
+  }
+  #logo-track:hover {
+    animation-play-state: paused;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in { animation: none; opacity: 1; }
+    #logo-track.scrolling { animation: none; }
+  }
+</style>
+
+<script>
+  // --- Slideshow ---
+  const slides = document.querySelectorAll<HTMLElement>(".hero-slide");
+  const dotsContainer = document.getElementById("hero-dots");
+  let current = 0;
+  let timer: ReturnType<typeof setInterval> | null = null;
+
+  const dotClass = (active: boolean) =>
+    "h-2 rounded-full transition-all duration-300 " + (active ? "bg-rover-red w-6" : "bg-ink/30 w-2");
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement("button");
+    dot.type = "button";
+    dot.setAttribute("aria-label", `Go to slide ${i + 1}`);
+    dot.className = dotClass(i === 0);
+    dot.addEventListener("click", () => goTo(i));
+    dotsContainer?.appendChild(dot);
+  });
+
+  function goTo(index: number) {
+    slides[current].classList.add("hidden");
+    slides[current].style.opacity = "0";
+    current = (index + slides.length) % slides.length;
+    slides[current].classList.remove("hidden");
+    setTimeout(() => { slides[current].style.opacity = "1"; }, 10);
+    dotsContainer?.querySelectorAll("button").forEach((dot, i) => (dot.className = dotClass(i === current)));
+    resetTimer();
+  }
+
+  function resetTimer() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(() => goTo(current + 1), 6000);
+  }
+
+  document.getElementById("hero-prev")?.addEventListener("click", () => goTo(current - 1));
+  document.getElementById("hero-next")?.addEventListener("click", () => goTo(current + 1));
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) { if (timer) clearInterval(timer); timer = null; }
+    else resetTimer();
+  });
+  slides[0].style.opacity = "1";
+  resetTimer();
+
+  // --- Logo scroll: duplicate the logos, then slide by exactly one set's width ---
+  const track = document.getElementById("logo-track");
+  if (track) {
+    [...track.children].forEach((el) => {
+      const clone = el.cloneNode(true) as HTMLElement;
+      clone.setAttribute("aria-hidden", "true");
+      clone.tabIndex = -1;
+      track.appendChild(clone);
+    });
+    window.addEventListener("load", () => {
+      track.style.setProperty("--logo-shift", `-${track.scrollWidth / 2}px`);
+      track.classList.add("scrolling");
+    });
+  }
+</script>

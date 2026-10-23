@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme colours as RGB channels, used by the page/panel/ink/... colours in tailwind.config.cjs. */
+:root {
+  --page: 255 255 255;
+  --panel: 244 244 245;
+  --ink: 10 10 10;
+  --muted: 63 63 70;
+  --subtle: 113 113 122;
+  --line: 10 10 10;
+  --accent: 176 0 5;        /* emblem red, darkened for contrast on white */
+  --hero-from: 250 250 250;
+  --hero-to: 254 226 226;
+  color-scheme: light;
+}
+
+.dark {
+  --page: 10 10 10;
+  --panel: 21 21 21;
+  --ink: 255 255 255;
+  --muted: 212 212 216;
+  --subtle: 161 161 170;
+  --line: 255 255 255;
+  --accent: 242 53 58;
+  --hero-from: 21 21 21;
+  --hero-to: 42 2 3;
+  color-scheme: dark;
+}
+
+:root {
+  font-family: Inter, sans-serif;
+  font-feature-settings: "liga" 1, "calt" 1, "zero" 1, "tnum" 1, "cv01" 1, "cv02" 1;
+}
+
+@supports (font-variation-settings: normal) {
+  :root {
+    font-family: InterVariable, sans-serif;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto Mono', monospace;
+}
+
+body {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
