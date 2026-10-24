@@ -1,21 +1,21 @@
 {
-  "name": "UNB Robotics",
-  "short_name": "unbrobotics",
+  "name": "UNB Rover Team",
+  "short_name": "UNB Rover",
   "icons": [
     {
-      "src": "/favicons/web-app-manifest-192x192.png",
+      "src": "/images/favicons/web-app-manifest-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any"
     },
     {
-      "src": "/favicons/web-app-manifest-512x512.png",
+      "src": "/images/favicons/web-app-manifest-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable"
-    },
+      "purpose": "any"
+    }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "theme_color": "#0a0a0a",
+  "background_color": "#0a0a0a",
   "display": "standalone"
 }
