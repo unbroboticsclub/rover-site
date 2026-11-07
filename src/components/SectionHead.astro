@@ -1,0 +1,20 @@
+---
+// Numbered section heading: "01 / Mission" label over a big condensed title.
+interface Props {
+  index: string;
+  label: string;
+  class?: string;
+}
+const { index, label, class: className = "" } = Astro.props;
+---
+
+<div class={className} data-reveal>
+  <p class="label flex items-center gap-3 text-subtle">
+    <span class="text-accent">{index}</span>
+    <span class="h-px w-8 bg-line/25" aria-hidden="true"></span>
+    {label}
+  </p>
+  <h2 class="display mt-5 text-5xl text-ink sm:text-6xl lg:text-7xl">
+    <slot />
+  </h2>
+</div>

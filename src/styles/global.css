@@ -2,26 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Theme colours as RGB channels, used by the page/panel/ink/... colours in tailwind.config.cjs. */
+/* Theme colours as RGB channels, used by the page/panel/ink/... colours in tailwind.config.cjs.
+   Palette is the logo's: black, white and rover red. Night (deep space) is the default. */
 :root {
   --page: 255 255 255;
-  --panel: 244 244 245;
+  --panel: 243 243 245;
   --ink: 10 10 10;
-  --muted: 63 63 70;
-  --subtle: 113 113 122;
+  --muted: 52 52 58;
+  --subtle: 100 100 110;
   --line: 10 10 10;
-  --accent: 176 0 5;        /* emblem red, darkened for contrast on white */
+  --accent: 176 0 5;        /* logo red, darkened for contrast on white */
   --hero-from: 250 250 250;
   --hero-to: 254 226 226;
   color-scheme: light;
 }
 
 .dark {
-  --page: 10 10 10;
-  --panel: 21 21 21;
+  --page: 6 6 8;
+  --panel: 16 16 20;
   --ink: 255 255 255;
-  --muted: 212 212 216;
-  --subtle: 161 161 170;
+  --muted: 205 205 212;
+  --subtle: 140 140 152;
   --line: 255 255 255;
   --accent: 242 53 58;
   --hero-from: 21 21 21;
@@ -31,7 +32,7 @@
 
 :root {
   font-family: Inter, sans-serif;
-  font-feature-settings: "liga" 1, "calt" 1, "zero" 1, "tnum" 1, "cv01" 1, "cv02" 1;
+  font-feature-settings: "liga" 1, "calt" 1, "cv01" 1, "cv02" 1;
 }
 
 @supports (font-variation-settings: normal) {
@@ -41,9 +42,128 @@
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Roboto Mono', monospace;
+  font-family: "Barlow Condensed", Inter, sans-serif;
 }
 
 body {
   transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+::selection {
+  background: #dc0106;
+  color: #fff;
+}
+
+@layer components {
+  /* Page width + gutters shared by every section. */
+  .wrap {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-8 lg:px-12;
+  }
+
+  /* Mono "telemetry" label used for kickers, captions and readouts. */
+  .label {
+    @apply font-mono text-[0.7rem] font-medium uppercase tracking-[0.18em];
+  }
+
+  /* Big condensed display heading. */
+  .display {
+    @apply font-display font-bold uppercase leading-[0.9] tracking-tight;
+  }
+
+  /* Faint mission-control grid behind a section. */
+  .bg-grid {
+    background-image:
+      linear-gradient(rgb(var(--line) / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--line) / 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /* Re-tone a photo to Mars rust-red, staying inside the logo's red. */
+  .mars-tone {
+    filter: grayscale(1) sepia(1) saturate(5) hue-rotate(-42deg) brightness(0.72) contrast(1.2);
+  }
+
+  /* A huge planet rising from the bottom of a dark section, echoing the logo's red arc. */
+  .planet {
+    @apply pointer-events-none absolute left-1/2 aspect-square -translate-x-1/2 rounded-full;
+    background:
+      radial-gradient(circle at 50% 0%, rgb(220 1 6 / 0.55), transparent 38%),
+      radial-gradient(circle at 50% 50%, #120203 55%, #2a0203 70%, #5a0104 100%);
+    box-shadow:
+      0 0 0 2px rgb(242 53 58 / 0.9),
+      0 0 60px 6px rgb(220 1 6 / 0.45),
+      0 0 220px 40px rgb(220 1 6 / 0.18);
+  }
+
+  /* Corner brackets around a framed image, like a camera viewfinder. */
+  .frame {
+    @apply relative;
+  }
+  .frame::before,
+  .frame::after {
+    content: "";
+    @apply pointer-events-none absolute size-6 border-accent;
+  }
+  .frame::before {
+    @apply -left-2 -top-2 border-l-2 border-t-2;
+  }
+  .frame::after {
+    @apply -bottom-2 -right-2 border-b-2 border-r-2;
+  }
+}
+
+/* ---------- Motion ---------- */
+
+/* Scroll reveal. Hidden only once JS has marked the page (html.js), so content shows without JS. */
+:where(.js) [data-reveal]:not(.revealed) {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+}
+:where(.js) [data-reveal].revealing {
+  transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Parallax layers move every frame; hint the compositor. */
+[data-parallax] {
+  will-change: transform;
+}
+
+/* Hero targeting reticle. */
+[data-reticle] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+[data-reticle].active {
+  opacity: 1;
+}
+[data-reticle].active.over-control {
+  opacity: 0;
+}
+[data-reticle] .ring {
+  animation: reticle-spin 12s linear infinite;
+}
+@keyframes reticle-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Planet: slow breathing glow. */
+.planet {
+  animation: planet-glow 6s ease-in-out infinite;
+}
+@keyframes planet-glow {
+  50% {
+    box-shadow:
+      0 0 0 2px rgb(242 53 58 / 1),
+      0 0 80px 10px rgb(220 1 6 / 0.55),
+      0 0 260px 60px rgb(220 1 6 / 0.22);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.js) [data-reveal]:not(.revealed) { opacity: 1; transform: none; }
+  .planet, [data-reticle] .ring { animation: none; }
 }

@@ -1,293 +1,335 @@
 ---
 import { Image } from "astro:assets";
 import RoverLayout from "@/layouts/RoverLayout.astro";
+import SectionHead from "@/components/SectionHead.astro";
+import Starfield from "@/components/Starfield.astro";
 import {
-  MAIN_SITE, competition, sapere, roles, faqs, sponsors,
+  MAIN_SITE, competition, currentRover, sapere, stats, roles, subsystems, faqs, sponsors, base,
 } from "@/data/rover.js";
-import { btnPrimary, btnRed, tag } from "@/styles/classes.js";
+import { btnRed, btnGhost, btnGhostLight } from "@/styles/classes.js";
 
-import emblem from "@/assets/rover-logo.png";
-import meeting3 from "@/assets/rover/Rover_Design_Meeting_3.jpeg";
+import heroRender from "@/assets/rover/rover3.png";
+import topView from "@/assets/rover/rover2.png";
 import teamPhoto from "@/assets/rover/circ2026/team-photo.jpg";
-import rover1 from "@/assets/rover/rover.png";
+import meeting3 from "@/assets/rover/Rover_Design_Meeting_3.jpeg";
+
+const telemetry = [
+  { label: "Vehicle", value: `Rover 02 · ${currentRover}` },
+  { label: "Mission", value: competition.short },
+  { label: "Crew", value: "UNB students" },
+  { label: "Base", value: base },
+];
+
+const sysCodes = ["MECH", "ELEC", "SOFT", "SCI"];
 ---
 
 <RoverLayout>
-  <!-- HERO SLIDESHOW -->
-  <section class="lg:p-8 overflow-hidden mt-24">
-    <div class="mx-auto 2xl:max-w-7xl w-full rounded-[3rem] overflow-hidden relative">
-      <div id="hero-slides" class="relative">
+  <!-- HERO: the design render, re-toned to Mars red, under a starfield -->
+  <section data-reticle-area class="relative isolate flex min-h-[min(100svh,960px)] flex-col overflow-hidden bg-black text-white">
+    <!-- Terrain: slightly oversized so it can drift with the cursor without showing an edge -->
+    <div class="absolute -inset-8 -z-30" data-parallax="14">
+      <Image
+        src={heroRender}
+        alt="Rover design render driving across cracked terrain"
+        widths={[800, 1400, 2048]}
+        sizes="100vw"
+        loading="eager"
+        fetchpriority="high"
+        class="size-full object-cover object-[72%_center] mars-tone md:object-[65%_center]"
+      />
+    </div>
+    <!-- Sky fades to space, with a live starfield -->
+    <div class="absolute inset-x-0 top-0 -z-10 h-[42%] bg-gradient-to-b from-[#060608] via-[#060608]/85 to-transparent" aria-hidden="true"></div>
+    <div class="absolute inset-x-0 top-0 -z-10 h-[50%]">
+      <Starfield fade density={2.2} depth={36} />
+    </div>
 
-        <!-- SLIDE 1 -->
-        <div class="hero-slide py-24 lg:px-16 px-8 bg-gradient-to-b from-hero-from to-hero-to relative" style="height: 480px;">
-          <Image
-            src={emblem}
-            alt="UNB Rover Team logo"
-            width={800}
-            class="sr-only lg:not-sr-only lg:absolute top-1/2 -translate-y-1/2 rounded-full fade-in w-auto lg:h-[340px] lg:right-[4%] xl:h-[380px] xl:right-[8%]"
-            loading="eager"
-          />
-          <div class="max-w-xl lg:max-w-[56%] xl:max-w-xl">
-            <h1 class="text-3xl tracking-tight mt-6 font-light lg:text-3xl xl:text-4xl text-ink">
-              Project Iterum
-              <span class="block text-accent">The Maritimes' first competition rover team.</span>
-            </h1>
-            <p class="text-ink mt-6 text-balance">
-              Iterum is this year's fully custom rover, being built by UNB students for the
-              {competition.name}. Every subsystem, from mechanical and electrical to software, is designed
-              and built entirely by UNB students.
-            </p>
-            <div class="inline-flex flex-wrap items-center mt-8">
-              <a href="#about" class={btnPrimary}>Learn More</a>
-            </div>
-          </div>
-        </div>
+    <!-- Cursor reticle (desktop only) -->
+    <div data-reticle class="z-20 -ml-10 -mt-10" aria-hidden="true">
+      <svg class="size-20 text-white/80" viewBox="0 0 80 80" fill="none" stroke="currentColor">
+        <g class="ring" style="transform-origin: 40px 40px">
+          <circle cx="40" cy="40" r="26" stroke-width="1" stroke-dasharray="4 6" />
+        </g>
+        <path d="M40 4v14M40 62v14M4 40h14M62 40h14" stroke-width="1.2" />
+        <circle cx="40" cy="40" r="2" fill="#f2353a" stroke="none" />
+      </svg>
+      <span data-reticle-readout class="label absolute left-[4.5rem] top-12 whitespace-pre text-[0.6rem] text-white/70"></span>
+    </div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-[#060608] via-transparent to-transparent" aria-hidden="true"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-black/70 via-black/5 to-transparent" aria-hidden="true"></div>
 
-        <!-- SLIDE 2 -->
-        <div class="hero-slide py-24 lg:px-16 px-8 bg-gradient-to-b from-hero-from to-hero-to relative hidden" style="height: 480px;">
-          <div class="sr-only lg:not-sr-only lg:absolute top-1/2 -translate-y-1/2 overflow-hidden lg:left-[58%] lg:right-[3%] xl:left-[54%] xl:right-[5%]" style="border-radius: 1.5rem; height: 320px;">
-            <Image src={teamPhoto} alt="UNB Rover Team members with Sapere at CIRC 2026" width={720} loading="eager" class="fade-in" style="height: 100%; width: 100%; object-fit: cover;" />
-          </div>
-          <div class="max-w-xl lg:max-w-[52%] xl:max-w-[48%]">
-            <span class={tag}>Our first rover</span>
-            <h1 class="text-3xl tracking-tight font-light lg:text-3xl xl:text-4xl text-ink">
-              Sapere competed at {competition.short} {sapere.year}
-              <span class="block text-accent">{sapere.dates}.</span>
-            </h1>
-            <p class="text-ink mt-6 text-balance">
-              Every year our rover gets a new name. Sapere, our first, took on the {competition.name},
-              organized by {competition.organizer}.
-            </p>
-            <div class="inline-flex flex-wrap items-center mt-8">
-              <a href="/sapere" class={btnPrimary}>Meet Sapere</a>
-            </div>
-          </div>
-        </div>
+    <!-- HUD corner ticks -->
+    <div class="pointer-events-none absolute inset-x-4 top-20 bottom-4 hidden sm:block lg:inset-x-8" aria-hidden="true">
+      <span class="absolute left-0 top-0 size-5 border-l border-t border-white/40"></span>
+      <span class="absolute right-0 top-0 size-5 border-r border-t border-white/40"></span>
+    </div>
 
-        <!-- SLIDE 3 -->
-        <div class="hero-slide py-24 lg:px-16 px-8 bg-gradient-to-b from-hero-from to-hero-to relative hidden" style="height: 480px;">
-          <div class="sr-only lg:not-sr-only lg:absolute top-1/2 -translate-y-1/2 overflow-hidden lg:left-[58%] lg:right-[3%] xl:left-[54%] xl:right-[5%]" style="border-radius: 1.5rem; height: 320px;">
-            <Image src={meeting3} alt="Rover design meeting" width={720} loading="eager" class="fade-in" style="height: 100%; width: 100%; object-fit: cover; opacity: 0.9;" />
-          </div>
-          <div class="max-w-xl lg:max-w-[52%] xl:max-w-[48%]">
-            <span class={tag}>Now Recruiting</span>
-            <h1 class="text-3xl tracking-tight font-light lg:text-3xl xl:text-4xl text-ink">
-              Team leads wanted.
-              <span class="block text-accent">Software, mechanical, electrical, and science.</span>
-            </h1>
-            <p class="text-ink mt-6 text-balance">
-              We're currently recruiting leads to take Iterum from design to competition.
-            </p>
-            <div class="inline-flex flex-wrap items-center mt-8">
-              <a href="#join" class={btnPrimary}>Join the Team</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Arrows + Dots -->
-      <div class="absolute bottom-6 left-0 right-0 flex items-center justify-center gap-4">
-        <button id="hero-prev" type="button" aria-label="Previous slide" class="w-8 h-8 rounded-full bg-ink/10 hover:bg-ink/20 text-ink flex items-center justify-center transition-all duration-200 border border-line/20">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-        <div id="hero-dots" class="flex gap-2"></div>
-        <button id="hero-next" type="button" aria-label="Next slide" class="w-8 h-8 rounded-full bg-ink/10 hover:bg-ink/20 text-ink flex items-center justify-center transition-all duration-200 border border-line/20">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
+    <div class="wrap flex flex-1 flex-col justify-end pb-12 pt-32 lg:pb-16">
+      <p class="label flex items-center gap-2 text-white/75" data-reveal>
+        <span class="relative flex size-2">
+          <span class="absolute inline-flex size-full animate-ping rounded-full bg-rover-red-light opacity-75 motion-reduce:hidden"></span>
+          <span class="relative inline-flex size-2 rounded-full bg-rover-red-light"></span>
+        </span>
+        Mission 02 · Now building
+      </p>
+      <h1 class="display mt-4 text-[clamp(5rem,19vw,14rem)] leading-[0.82]" data-reveal data-reveal-delay="100">
+        {currentRover}
+      </h1>
+      <p class="mt-6 max-w-xl text-lg text-white/85 text-balance" data-reveal data-reveal-delay="220">
+        The Maritimes' first competition rover team is building its second Mars-analog rover for the
+        {competition.name}. Every subsystem is designed and built by UNB students.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3" data-reveal data-reveal-delay="320">
+        <a href="#join" class={btnRed}>Join the crew</a>
+        <a href={`${MAIN_SITE}/sponsor`} class={btnGhostLight}>Sponsor {currentRover}</a>
       </div>
     </div>
-  </section>
 
-  <!-- SPONSOR LOGO STRIP -->
-  <section class="lg:px-8 mt-6">
-    <div class="mx-auto 2xl:max-w-7xl">
-      <p class="text-center text-xs font-semibold tracking-widest uppercase text-subtle mb-6">Proudly supported in {sapere.year} by</p>
-      <div class="relative overflow-hidden py-8">
-        <div class="pointer-events-none absolute left-0 inset-y-0 w-20 z-10 bg-gradient-to-r from-page to-transparent"></div>
-        <div class="pointer-events-none absolute right-0 inset-y-0 w-20 z-10 bg-gradient-to-l from-page to-transparent"></div>
-        <div id="logo-track" class="flex items-center gap-20">
-          {sponsors.map((s) => (
-            <a href={s.url} target="_blank" rel="noopener" class="shrink-0 rounded-2xl dark:bg-white/90 dark:px-5 dark:py-3" title={s.name}>
-              <img src={s.logo} alt={s.name} style={`height:${s.height}`} class="object-contain opacity-75 hover:opacity-100 transition-opacity" />
-            </a>
-          ))}
+    <dl class="wrap grid grid-cols-2 border-t border-white/15 md:grid-cols-4">
+      {telemetry.map((t, i) => (
+        <div class:list={["py-5", i % 2 === 1 && "pl-4 border-l border-white/15", i >= 2 && "md:pl-4 md:border-l md:border-white/15 border-t border-white/15 md:border-t-0"]}>
+          <dt class="label text-white/50">{t.label}</dt>
+          <dd class="mt-1 font-display text-xl font-semibold uppercase tracking-wide">{t.value}</dd>
         </div>
-      </div>
-    </div>
+      ))}
+    </dl>
   </section>
 
-  <!-- ABOUT -->
-  <section id="about" class="lg:p-8 scroll-mt-24">
-    <div class="mx-auto 2xl:max-w-7xl py-24 lg:px-16 md:px-12 px-8 xl:px-40 relative w-full">
-      <div class="bg-gradient-to-b from-hero-from to-hero-to ring-1 ring-line/10 grid grid-cols-1 md:grid-cols-2 rounded-4xl p-8 lg:p-20 relative overflow-hidden">
-        <div class="relative z-10">
-          <span class="text-ink">What is Iterum?</span>
-          <h2 class="text-3xl mt-6 tracking-tight font-light lg:text-3xl xl:text-4xl text-ink">
-            A rover engineered
-            <span class="block text-muted">from first principles.</span>
-          </h2>
-          <p class="mt-4 text-sm text-ink max-w-xl">
-            Iterum is this year's fully custom rover, designed by UNB Robotics for the
-            {competition.name}.
-          </p>
-          <p class="mt-4 text-sm text-ink max-w-xl">
-            Every year our rover gets a new name. Iterum follows <a href="/sapere" class="underline hover:text-accent">Sapere</a>,
-            our first rover, which competed at {competition.short} {sapere.year}. Every subsystem from mechanical,
-            electrical, and software is designed and built entirely by UNB students.
-          </p>
-        </div>
-        <Image
-          src={rover1}
-          alt=""
-          width={1200}
-          class="mt-8 md:mt-0 rounded-3xl md:rounded-none md:absolute md:inset-y-0 md:right-0 md:w-3/5 md:h-full object-cover opacity-30 md:[mask-image:linear-gradient(to_right,transparent,black_45%)]"
-        />
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq" class="lg:p-8 scroll-mt-24">
-    <div class="px-8 py-12 mx-auto md:px-12 lg:px-16 xl:px-36 2xl:max-w-7xl">
-      <div class="max-w-xl mx-auto text-center">
-        <span class="text-accent">FAQ</span>
-        <h2 class="text-3xl mt-6 tracking-tight font-light lg:text-3xl xl:text-4xl text-ink">
-          The answers to your <span class="md:block text-subtle">Frequent questions</span>
-        </h2>
-      </div>
-      <div class="relative mx-auto bg-panel shadow-inset divide-y divide-line/10 p-6 md:p-20 rounded-2xl md:rounded-[3rem] mt-12">
-        {faqs.map((faq) => (
-          <details class="group cursor-pointer">
-            <summary class="flex items-center justify-between w-full py-6 text-left select-none font-medium text-ink text-lg">
-              {faq.question}
-              <svg class="size-5 shrink-0 ml-4 duration-300 ease-out text-accent transform group-open:-rotate-45" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-              </svg>
-            </summary>
-            <div class="py-4 pt-2 text-subtle">{faq.answer}</div>
-          </details>
+  <!-- SPONSORS STRIP -->
+  <section class="border-b border-line/10 py-10" aria-label="Sponsors">
+    <p class="label wrap text-center text-subtle">Mission partners · {sapere.year}</p>
+    <div class="relative mt-6 overflow-hidden">
+      <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-page to-transparent sm:w-32"></div>
+      <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-page to-transparent sm:w-32"></div>
+      <div id="logo-track" class="flex w-max items-center gap-4">
+        {sponsors.map((s) => (
+          <a href={s.url} target="_blank" rel="noopener" title={s.name}
+             class="flex h-20 w-48 shrink-0 items-center justify-center rounded-sm bg-white px-6 ring-1 ring-black/5">
+            <img src={s.logo} alt={s.name} class="max-h-14 w-auto object-contain" />
+          </a>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- JOIN -->
-  <section id="join" class="lg:p-8 scroll-mt-24">
-    <div class="px-8 py-12 lg:py-32 mx-auto md:px-12 lg:px-16 xl:px-36 2xl:max-w-7xl">
-      <div class="relative isolate bg-gradient-to-b from-hero-from to-hero-to ring-1 ring-line/10 rounded-4xl px-6 py-12 sm:px-16 lg:px-24 lg:py-24 xl:flex xl:items-center xl:gap-x-12">
-        <div class="mx-auto max-w-md text-center xl:mx-0 xl:flex-auto xl:text-left">
-          <span class="text-accent font-mono text-xs tracking-widest uppercase">Now recruiting leads</span>
-          <h2 class="text-3xl mt-6 tracking-tight font-light lg:text-3xl xl:text-4xl text-ink">
-            Ready to join the Maritimes' first competition rover team?
-          </h2>
-          <p class="mt-4 text-base text-muted">
-            We're currently recruiting leads for software, mechanical, electrical, and science. General members are
-            always welcome too, no experience required. Apply on the club site and we'll get you connected.
+  <!-- 01 MISSION PROFILE -->
+  <section id="mission" class="scroll-mt-20 bg-grid py-24 lg:py-32">
+    <div class="wrap">
+      <div class="grid items-center gap-16 lg:grid-cols-2">
+        <div>
+          <SectionHead index="01" label="Mission profile">
+            Engineered from<br /><span class="text-accent">first principles.</span>
+          </SectionHead>
+          <p class="mt-8 max-w-xl text-lg text-muted">
+            {currentRover} is this year's fully custom rover, designed by UNB Robotics for the
+            {competition.name}, organized by {competition.organizer}.
           </p>
-          <div class="mt-8 flex flex-wrap gap-4 justify-center xl:justify-start">
-            <a href={MAIN_SITE} class={btnPrimary}>Apply on unbrobotics.ca</a>
-            <a href={`${MAIN_SITE}/sponsor`} class={btnRed}>Sponsor Iterum</a>
+          <p class="mt-4 max-w-xl text-muted">
+            Every year our rover gets a new name. {currentRover} follows
+            <a href="/sapere" class="font-medium text-ink underline decoration-accent decoration-2 underline-offset-4 hover:text-accent">Sapere</a>,
+            our first rover, which competed at {competition.short} {sapere.year}.
+          </p>
+        </div>
+        <figure data-reveal data-reveal-delay="150">
+          <div class="frame relative">
+            <Image src={topView} alt="Top-down design render of the rover on cracked terrain"
+                   widths={[600, 1000]} sizes="(min-width: 1024px) 45vw, 100vw"
+                   class="aspect-[4/3] w-full rounded-sm object-cover" />
+            <!-- Targeting reticle over the rover -->
+            <svg class="pointer-events-none absolute left-1/2 top-1/2 size-[46%] -translate-x-1/2 -translate-y-1/2 text-rover-red" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.8" aria-hidden="true">
+              <circle cx="50" cy="50" r="46" stroke-dasharray="3 4" />
+              <path d="M50 0v12M50 88v12M0 50h12M88 50h12" stroke-width="1.2" />
+            </svg>
           </div>
-        </div>
-        <div class="mt-12 xl:mt-0 mx-auto max-w-md xl:w-1/2 space-y-3">
-          {roles.map((role) => (
-            <div class="flex items-center gap-2 text-sm text-muted font-mono">
-              <span class="text-accent">→</span> {role}
+          <figcaption class="label mt-4 flex justify-between gap-4 text-subtle">
+            <span>Fig. 01 — Design render, top view</span>
+            <span class="hidden sm:inline">Orbital pass</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <ol class="mt-20 grid border-t border-line/15 sm:grid-cols-2 lg:grid-cols-4">
+        {subsystems.map((s, i) => (
+          <li data-reveal data-reveal-delay={i * 90} class="border-b border-line/15 py-8 sm:px-6 sm:[&:nth-child(odd)]:pl-0 lg:border-b-0 lg:[&:not(:first-child)]:border-l lg:first:pl-0">
+            <span class="label text-accent">SYS-{String(i + 1).padStart(2, "0")} · {sysCodes[i]}</span>
+            <h3 class="mt-3 font-display text-3xl font-bold uppercase text-ink">{s.name}</h3>
+            <p class="mt-3 text-sm text-muted">{s.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 02 MISSION LOG -->
+  <section id="log" class="scroll-mt-20 border-y border-line/10 bg-panel py-24 lg:py-32">
+    <div class="wrap">
+      <SectionHead index="02" label="Mission log">
+        A new rover,<br />every year.
+      </SectionHead>
+
+      <div class="mt-14 grid gap-6 lg:grid-cols-2">
+        <!-- Mission 01 -->
+        <article data-reveal class="flex flex-col overflow-hidden rounded-sm bg-page ring-1 ring-line/10 duration-300 hover:-translate-y-1 hover:ring-accent/40">
+          <Image src={teamPhoto} alt="UNB Rover Team members with Sapere at CIRC 2026"
+                 widths={[600, 1000]} sizes="(min-width: 1024px) 45vw, 100vw"
+                 class="aspect-[16/9] w-full object-cover" />
+          <div class="flex flex-1 flex-col p-6 sm:p-8">
+            <div class="flex items-baseline justify-between gap-4">
+              <p class="label text-subtle">Mission 01 · {competition.short} {sapere.year}</p>
+              <p class="label flex items-center gap-2 text-subtle">
+                <span class="size-1.5 rounded-full bg-subtle"></span> Complete
+              </p>
             </div>
-          ))}
+            <h3 class="display mt-3 text-5xl text-ink">{sapere.name}</h3>
+            <p class="label mt-1 text-subtle">{sapere.dates}</p>
+            <dl class="mt-6 grid grid-cols-3 gap-4 border-t border-line/10 pt-6">
+              {stats.map((s) => (
+                <div>
+                  <dd class="font-display text-3xl font-bold text-accent sm:text-4xl">{s.value}</dd>
+                  <dt class="label mt-1 !tracking-[0.1em] text-subtle">{s.label}</dt>
+                </div>
+              ))}
+            </dl>
+            <a href="/sapere" class={`${btnGhost} mt-8 self-start`}>Read the log →</a>
+          </div>
+        </article>
+
+        <!-- Mission 02 -->
+        <article data-reveal data-reveal-delay="120" class="relative isolate flex flex-col overflow-hidden rounded-sm bg-[#060608] text-white ring-1 ring-line/10 duration-300 hover:-translate-y-1 hover:ring-rover-red/60">
+          <div class="relative">
+            <Image src={meeting3} alt="Rover team design meeting"
+                   widths={[600, 1000]} sizes="(min-width: 1024px) 45vw, 100vw"
+                   class="aspect-[16/9] w-full object-cover mars-tone" />
+          </div>
+          <div class="flex flex-1 flex-col p-6 sm:p-8">
+            <div class="flex items-baseline justify-between gap-4">
+              <p class="label text-white/60">Mission 02 · {competition.short}</p>
+              <p class="label flex items-center gap-2 text-rover-red-light">
+                <span class="size-1.5 animate-pulse rounded-full bg-rover-red-light"></span> In progress
+              </p>
+            </div>
+            <h3 class="display mt-3 text-5xl">{currentRover}</h3>
+            <p class="mt-6 max-w-md border-t border-white/15 pt-6 text-white/75">
+              Designed from the lessons of Sapere and built by a new crew. The build is under way,
+              and there's room on the team for you.
+            </p>
+            <div class="mt-auto flex flex-wrap gap-3 pt-8">
+              <a href="#join" class={btnRed}>Join the build</a>
+              <a href={`${MAIN_SITE}/sponsor`} class={btnGhostLight}>Sponsor</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 JOIN: always deep space, with a red planet rising -->
+  <section id="join" class="relative isolate scroll-mt-20 overflow-hidden bg-[#060608] pb-56 pt-24 text-white lg:pb-72 lg:pt-32">
+    <div class="absolute inset-0 -z-20"><Starfield density={1.8} depth={30} /></div>
+    <div class="absolute inset-0 -z-10" data-parallax="10" aria-hidden="true">
+      <div class="planet top-[calc(100%-11rem)] w-[220%] sm:w-[160%] lg:top-[calc(100%-14rem)] lg:w-[120%]"></div>
+    </div>
+
+    <div class="wrap grid gap-16 lg:grid-cols-[1fr_1.1fr]">
+      <div>
+        <div data-reveal>
+        <p class="label flex items-center gap-3 text-white/55">
+          <span class="text-rover-red-light">03</span>
+          <span class="h-px w-8 bg-white/25" aria-hidden="true"></span>
+          Crew wanted
+        </p>
+        <h2 class="display mt-5 text-5xl sm:text-6xl lg:text-7xl">
+          Team leads<br /><span class="text-rover-red-light">wanted.</span>
+        </h2>
         </div>
+        <p class="mt-8 max-w-md text-lg text-white/75" data-reveal data-reveal-delay="120">
+          We're recruiting leads to take {currentRover} from design to competition. Anyone from any
+          faculty can join, and general members are always welcome. No experience required.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={MAIN_SITE} class={btnRed}>Apply on unbrobotics.ca</a>
+          <a href={`${MAIN_SITE}/sponsor`} class={btnGhostLight}>Sponsor {currentRover}</a>
+        </div>
+      </div>
+
+      <ul class="self-end border-t border-white/15">
+        {roles.map((r, i) => (
+          <li data-reveal data-reveal-delay={i * 90}>
+            <a href={MAIN_SITE} class="group grid grid-cols-[auto_1fr_auto] items-center gap-6 border-b border-white/15 py-6 duration-200 hover:bg-white/[0.04]">
+              <span class="label text-white/45">{String(i + 1).padStart(2, "0")}</span>
+              <span>
+                <span class="block font-display text-3xl font-bold uppercase duration-200 group-hover:text-rover-red-light">{r.title}</span>
+                <span class="mt-1 block text-sm text-white/65">{r.focus}</span>
+              </span>
+              <span class="text-xl text-white/45 duration-200 group-hover:translate-x-1 group-hover:text-rover-red-light" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 04 FAQ -->
+  <section id="faq" class="scroll-mt-20 border-t border-line/10 bg-grid py-24 lg:py-32">
+    <div class="wrap grid gap-12 lg:grid-cols-[1fr_1.6fr]">
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <SectionHead index="04" label="Comms · FAQ">
+          Questions,<br />answered.
+        </SectionHead>
+        <p class="mt-6 text-muted">
+          Something else? <a href={`${MAIN_SITE}/contact`} class="text-ink underline decoration-accent decoration-2 underline-offset-4 hover:text-accent">Contact us</a>.
+        </p>
+      </div>
+      <div class="border-t border-line/15">
+        {faqs.map((faq, i) => (
+          <details data-reveal data-reveal-delay={i * 60} class="group border-b border-line/15">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-6 text-left text-lg font-medium text-ink [&::-webkit-details-marker]:hidden">
+              {faq.question}
+              <span class="relative size-4 shrink-0 text-accent" aria-hidden="true">
+                <span class="absolute left-0 top-1/2 h-0.5 w-4 -translate-y-1/2 bg-current"></span>
+                <span class="absolute left-1/2 top-0 h-4 w-0.5 -translate-x-1/2 bg-current duration-300 group-open:rotate-90 group-open:opacity-0"></span>
+              </span>
+            </summary>
+            <p class="max-w-2xl pb-6 text-muted">{faq.answer}</p>
+          </details>
+        ))}
       </div>
     </div>
   </section>
 </RoverLayout>
 
 <style>
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  .fade-in {
-    animation: fadeIn 2s ease-in-out forwards;
-    opacity: 0;
-  }
-  .hero-slide {
-    transition: opacity 0.5s ease;
-  }
   @keyframes logoScroll {
     from { transform: translateX(0); }
     to { transform: translateX(var(--logo-shift, -50%)); }
   }
   #logo-track.scrolling {
-    animation: logoScroll 20s linear infinite;
+    animation: logoScroll 30s linear infinite;
   }
   #logo-track:hover {
     animation-play-state: paused;
   }
   @media (prefers-reduced-motion: reduce) {
-    .fade-in { animation: none; opacity: 1; }
     #logo-track.scrolling { animation: none; }
   }
 </style>
 
 <script>
-  // --- Slideshow ---
-  const slides = document.querySelectorAll<HTMLElement>(".hero-slide");
-  const dotsContainer = document.getElementById("hero-dots");
-  let current = 0;
-  let timer: ReturnType<typeof setInterval> | null = null;
-
-  const dotClass = (active: boolean) =>
-    "h-2 rounded-full transition-all duration-300 " + (active ? "bg-rover-red w-6" : "bg-ink/30 w-2");
-
-  slides.forEach((_, i) => {
-    const dot = document.createElement("button");
-    dot.type = "button";
-    dot.setAttribute("aria-label", `Go to slide ${i + 1}`);
-    dot.className = dotClass(i === 0);
-    dot.addEventListener("click", () => goTo(i));
-    dotsContainer?.appendChild(dot);
-  });
-
-  function goTo(index: number) {
-    slides[current].classList.add("hidden");
-    slides[current].style.opacity = "0";
-    current = (index + slides.length) % slides.length;
-    slides[current].classList.remove("hidden");
-    setTimeout(() => { slides[current].style.opacity = "1"; }, 10);
-    dotsContainer?.querySelectorAll("button").forEach((dot, i) => (dot.className = dotClass(i === current)));
-    resetTimer();
-  }
-
-  function resetTimer() {
-    if (timer) clearInterval(timer);
-    timer = setInterval(() => goTo(current + 1), 6000);
-  }
-
-  document.getElementById("hero-prev")?.addEventListener("click", () => goTo(current - 1));
-  document.getElementById("hero-next")?.addEventListener("click", () => goTo(current + 1));
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) { if (timer) clearInterval(timer); timer = null; }
-    else resetTimer();
-  });
-  slides[0].style.opacity = "1";
-  resetTimer();
-
-  // --- Logo scroll: duplicate the logos, then slide by exactly one set's width ---
+  // Logo scroll: duplicate the logos, then slide by exactly one set's width so the loop is seamless.
   const track = document.getElementById("logo-track");
   if (track) {
+    const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
     [...track.children].forEach((el) => {
       const clone = el.cloneNode(true) as HTMLElement;
       clone.setAttribute("aria-hidden", "true");
       clone.tabIndex = -1;
       track.appendChild(clone);
     });
-    window.addEventListener("load", () => {
-      track.style.setProperty("--logo-shift", `-${track.scrollWidth / 2}px`);
+    const start = () => {
+      track.style.setProperty("--logo-shift", `-${(track.scrollWidth + gap) / 2}px`);
       track.classList.add("scrolling");
-    });
+    };
+    if (document.readyState === "complete") start();
+    else window.addEventListener("load", start);
   }
 </script>

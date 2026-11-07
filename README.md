@@ -4,6 +4,7 @@ Site for the UNB Robotics Rover Project. Separate Astro project from the main si
 
 - `/` – public project page. Text lives in `src/data/rover.js`; photos in `src/assets/rover/` (Astro resizes them to WebP at build time).
 - Colours come from the UNB Rover Team emblem (`src/assets/emblem.png`) and are defined once in `tailwind.config.cjs` under `rover`.
+- Type: Barlow Condensed for headings (`.display`), JetBrains Mono for labels (`.label`), Inter for body text. Shared pieces live in `src/styles/global.css` (`.wrap`, `.bg-grid`, `.frame`), `src/styles/classes.js` (buttons) and `src/components/SectionHead.astro`.
 
 ## Local development
 

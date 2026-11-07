@@ -19,6 +19,10 @@ export const sapere = {
   sponsorFunding: "$8,690",
 };
 
+// Where the team is based now.
+export const base = "Head Hall H302";
+
+// The 2026 (Sapere) build season.
 export const meetings = {
   season: "April 27 to August 6",
   when: "Weekdays, 5–8 PM",
@@ -34,10 +38,18 @@ export const stats = [
 
 // Lead positions we're currently recruiting for.
 export const roles = [
-  "Software Lead: autonomy, navigation, firmware",
-  "Mechanical Lead: chassis, suspension, robotic arm",
-  "Electrical Lead: power systems, sensors, wiring",
-  "Science Lead: life detection, geology sampling",
+  { title: "Software Lead", focus: "Autonomy, navigation, firmware" },
+  { title: "Mechanical Lead", focus: "Chassis, suspension, robotic arm" },
+  { title: "Electrical Lead", focus: "Power systems, sensors, wiring" },
+  { title: "Science Lead", focus: "Life detection, geology sampling" },
+];
+
+// The four subsystem teams that build each rover.
+export const subsystems = [
+  { name: "Mechanical", body: "Chassis, suspension and the robotic arm, from CAD to machined parts." },
+  { name: "Electrical", body: "Power systems, sensors and wiring that keep every motor and board alive." },
+  { name: "Software", body: "Autonomy, navigation and firmware, from the drive controller up." },
+  { name: "Science", body: "Life detection and geology sampling for the science mission." },
 ];
 
 export const faqs = [
