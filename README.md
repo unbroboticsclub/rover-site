@@ -1,15 +1,14 @@
 # rover.unbrobotics.ca
 
-Site for the UNB Robotics Rover Project. Separate Astro project from the main site in `../frontend`, sharing its Tailwind theme.
+Site for the UNB Robotics Rover Project. Astro site, kept separate from the main UNB Robotics site (`unbroboticsclub/frontend`).
 
 - `/` – public project page. Text lives in `src/data/rover.js`; photos in `src/assets/rover/` (Astro resizes them to WebP at build time).
-- Colours come from the UNB Rover Team emblem (`src/assets/emblem.png`) and are defined once in `tailwind.config.cjs` under `rover`.
+- Colours come from the UNB Rover Team logo (`src/assets/logo/`): black, white and rover red, defined once in `tailwind.config.cjs` and as theme tokens in `src/styles/global.css`.
 - Type: Barlow Condensed for headings (`.display`), JetBrains Mono for labels (`.label`), Inter for body text. Shared pieces live in `src/styles/global.css` (`.wrap`, `.bg-grid`, `.frame`), `src/styles/classes.js` (buttons) and `src/components/SectionHead.astro`.
 
 ## Local development
 
 ```sh
-cd rover
 npm install
 npm run dev      # http://localhost:4321
 npm run build    # outputs to dist/
@@ -17,10 +16,10 @@ npm run build    # outputs to dist/
 
 ## Deploying on Cloudflare Pages
 
-1. Cloudflare dashboard → **Workers & Pages → Create → Pages → Connect to Git**, pick `unbroboticsclub/frontend`.
+1. Cloudflare dashboard → **Workers & Pages → Create → Pages → Connect to Git**, pick this repository.
 2. Build settings:
    - **Framework preset:** Astro
-   - **Root directory:** `rover`
+   - **Root directory:** leave blank
    - **Build command:** `npm run build`
    - **Build output directory:** `dist`
    - **Environment variable:** `NODE_VERSION` = `22`
