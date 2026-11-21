@@ -75,8 +75,8 @@ const sysCodes = ["MOB", "MANIP", "PWR", "NAV", "COMMS"];
         {currentRover}
       </h1>
       <p class="mt-6 max-w-xl text-lg text-white/85 text-balance" data-reveal data-reveal-delay="220">
-        The Maritimes' first competition rover team is building its second Mars-analog rover for the
-        {competition.name}. Every subsystem is designed and built by UNB students.
+        The Maritimes' first competition rover team is building the next iteration of its Mars-analog rover
+        for the {competition.name}. Every subsystem is designed and built by UNB students.
       </p>
       <div class="mt-8 flex flex-wrap gap-3" data-reveal data-reveal-delay="320">
         <a href="#join" class={btnRed}>Join the crew</a>
@@ -120,13 +120,14 @@ const sysCodes = ["MOB", "MANIP", "PWR", "NAV", "COMMS"];
             Engineered from<br /><span class="text-accent">first principles.</span>
           </SectionHead>
           <p class="mt-8 max-w-xl text-lg text-muted">
-            {currentRover} is this year's fully custom rover, designed by UNB Robotics for the
+            {currentRover} is the latest iteration of our custom rover, designed by UNB Robotics for the
             {competition.name}, organized by {competition.organizer}.
           </p>
           <p class="mt-4 max-w-xl text-muted">
-            Every year our rover gets a new name. {currentRover} follows
+            We don't start from scratch each year. Every season we build on the last version of the rover and
+            give the new iteration its own name. {currentRover} builds on
             <a href="/sapere" class="font-medium text-ink underline decoration-accent decoration-2 underline-offset-4 hover:text-accent">Sapere</a>,
-            our first rover, which competed at {competition.short} {sapere.year}.
+            our first iteration, which competed at {competition.short} {sapere.year}.
           </p>
         </div>
         <figure data-reveal data-reveal-delay="150">
@@ -163,7 +164,7 @@ const sysCodes = ["MOB", "MANIP", "PWR", "NAV", "COMMS"];
   <section id="log" class="scroll-mt-20 border-y border-line/10 bg-panel py-24 lg:py-32">
     <div class="wrap">
       <SectionHead index="02" label="Mission log">
-        A new rover,<br />every year.
+        A new iteration,<br />every year.
       </SectionHead>
 
       <div class="mt-14 grid gap-6 lg:grid-cols-2">

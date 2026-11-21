@@ -30,7 +30,7 @@ export const competition = {
   organizer: "CSTAG",
 };
 
-// Every year the rover gets a new name. Sapere was the first.
+// The team keeps building on the same rover; each season's iteration gets its own name. Sapere was the first.
 export const currentRover = "Iterum";
 
 export const sapere = {
@@ -51,11 +51,10 @@ export const iterum = {
 // Where the team is based now.
 export const base = "Head Hall C127";
 
-// The 2026 (Sapere) build season.
+// Current team meetings.
 export const meetings = {
-  season: "April 27 to August 6",
-  when: "Weekdays, 5–8 PM",
-  where: "Head Hall H214",
+  when: "every Monday at 6 PM",
+  where: base,
 };
 
 // Sapere's 2026 season.
@@ -89,7 +88,7 @@ export const faqs = [
   {
     question: "What is Project Iterum?",
     answer:
-      "Iterum is this year's fully custom rover, designed and built by UNB Robotics for the Canadian International Rover Challenge. Every subsystem, from mobility and manipulation to power, autonomy, and communications, is built entirely by UNB students.",
+      "Iterum is the latest iteration of our custom rover, built on Sapere and designed by UNB Robotics for the Canadian International Rover Challenge. Each season we upgrade the rover and give the new iteration its own name. Every subsystem, from mobility and manipulation to power, autonomy, and communications, is built entirely by UNB students.",
   },
   {
     question: "Is the team recruiting?",
@@ -108,7 +107,7 @@ export const faqs = [
   },
   {
     question: "When and where does the team meet?",
-    answer: `During the ${sapere.year} build season (${meetings.season}) we met ${meetings.when.toLowerCase()} in ${meetings.where}. Follow @unbrobotics for next season's schedule.`,
+    answer: `We meet ${meetings.when} in ${meetings.where}. New members are always welcome, so just drop by.`,
   },
   {
     question: "How can my company support Iterum?",

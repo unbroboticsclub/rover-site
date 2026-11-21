@@ -13,7 +13,6 @@ const record = [
   { value: "60+", label: "Students on Sapere" },
   { value: sapere.sponsorFunding, label: "Sponsor funding raised" },
   { value: sapere.inKindSponsorship, label: "In-kind sponsorship" },
-  { value: String(sponsors.length), label: "Sponsors & partners" },
 ];
 
 const timeline = [
@@ -29,7 +28,7 @@ const field =
 
 <RoverLayout
   title={`Sponsor ${currentRover} | UNB Rover Team`}
-  description={`Sponsor ${currentRover}, the UNB Rover Team's second rover, on its way back to the ${competition.name}.`}
+  description={`Sponsor ${currentRover}, the next iteration of the UNB Rover Team's rover, on its way back to the ${competition.name}.`}
 >
   <!-- HERO -->
   <section class="relative isolate bg-grid pb-16 pt-32 lg:pb-24 lg:pt-40">
@@ -61,9 +60,9 @@ const field =
     <div class="wrap py-6">
       <p class="label text-white/50">Mission 01 track record · {sapere.name}, {competition.short} {sapere.year}</p>
     </div>
-    <dl class="wrap grid grid-cols-2 border-t border-white/15 lg:grid-cols-4">
+    <dl class="wrap grid border-t border-white/15 sm:grid-cols-3">
       {record.map((s, i) => (
-        <div data-reveal data-reveal-delay={i * 90} class:list={["py-8", i % 2 === 1 && "border-l border-white/15 pl-6", i >= 2 && "border-t border-white/15 lg:border-t-0", i === 2 && "lg:border-l lg:pl-6"]}>
+        <div data-reveal data-reveal-delay={i * 90} class:list={["py-8", i > 0 && "border-t border-white/15 sm:border-l sm:border-t-0 sm:pl-6"]}>
           <dd class="font-display text-4xl font-bold text-rover-red-light sm:text-5xl">{s.value}</dd>
           <dt class="label mt-2 text-white/60">{s.label}</dt>
         </div>
@@ -83,10 +82,11 @@ const field =
           taking the UNB Rover Team to the {competition.name} ({sapere.dates}), organized by {competition.organizer}.
         </p>
         <p>
-          {currentRover} is our second rover and our return to {competition.short}, {iterum.dates}. Every subsystem, from mobility
-          and manipulation to power, autonomy, and communications, is designed and built by UNB students, taking
-          what we learned from {sapere.name} into a stronger platform.
-        </p>        <a href="/sapere" class="label inline-flex items-center gap-2 text-accent hover:underline">See how {sapere.name} went →</a>
+          {currentRover} is the next iteration of that rover and our return to {competition.short}, {iterum.dates}. We're
+          building on {sapere.name} rather than starting over, upgrading every subsystem, from mobility and
+          manipulation to power, autonomy, and communications, with what we learned in {sapere.year}.
+        </p>
+        <a href="/sapere" class="label inline-flex items-center gap-2 text-accent hover:underline">See how {sapere.name} went →</a>
       </div>
     </div>
   </section>
@@ -108,14 +108,14 @@ const field =
       </figure>
       <div class="space-y-5 text-white/75" data-reveal data-reveal-delay="150">
         <p>
-          Every year our rover gets a new name. Our first was <strong class="text-white">{sapere.name}</strong>, Latin for
-          "to know", for a rookie team learning what it takes to design, build, and field a competition rover
-          from scratch.
+          We don't build a brand-new rover every year. We keep building on the same one, and each iteration gets
+          its own name. The first was <strong class="text-white">{sapere.name}</strong>, Latin for "to know", for a
+          rookie team learning what it takes to design, build, and field a competition rover from scratch.
         </p>
         <p>
-          Our second is <strong class="text-white">{currentRover}</strong>, Latin for "again" or "once more". It's a
-          promise that {sapere.name} wasn't a one-off: the Maritimes' first competition rover team is going back to
-          {competition.short}, carrying every lesson from {sapere.year} into a stronger, more capable rover.
+          The next iteration is <strong class="text-white">{currentRover}</strong>, Latin for "again" or "once more". It's
+          a promise that {sapere.name} wasn't a one-off: the Maritimes' first competition rover team is going back to
+          {competition.short}, building on everything from {sapere.year} to make the rover stronger and more capable.
         </p>
         <p>
           {currentRover} stands for persistence: iterating, testing, and trying again until it works. Sponsoring
