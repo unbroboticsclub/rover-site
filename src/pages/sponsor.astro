@@ -152,7 +152,7 @@ const field =
         <div class="flex flex-wrap items-end justify-between gap-6">
           <div>
             <p class="label text-subtle">Plan your contribution</p>
-            <p class="mt-2 font-display text-6xl font-bold leading-none text-ink sm:text-7xl"><output id="budget-out">$1,000</output></p>
+            <p class="mt-2 font-display text-6xl font-bold leading-none text-ink sm:text-7xl"><output id="budget-out">$2,500</output></p>
           </div>
           <div class="text-right">
             <p class="label text-subtle">Your tier</p>
@@ -161,8 +161,8 @@ const field =
         </div>
         <div class="relative mt-8">
           <!-- Each tier gets an equal quarter of the track; the script maps position to dollars. -->
-          <input id="budget" type="range" min="0" max={tiers.length * 100} step="1" value="150"
-                 aria-label="Contribution amount" aria-valuetext="$1,000" class="budget-range w-full" style="--pct: 37.5%" />
+          <input id="budget" type="range" min="0" max={tiers.length * 100} step="1" value="229"
+                 aria-label="Contribution amount" aria-valuetext="$2,500" class="budget-range w-full" style="--pct: 57.25%" />
           <div class="relative mt-3 grid h-10" style={`grid-template-columns: repeat(${tiers.length}, minmax(0, 1fr))`} aria-hidden="true">
             {tiers.map((t, i) => (
               <button type="button" data-jump={i === 0 ? 50 : i * 100} tabindex="-1"
@@ -183,13 +183,15 @@ const field =
               <div class="tier-spot pointer-events-none absolute inset-0" aria-hidden="true"></div>
 
               <div class="relative flex items-center justify-between gap-3">
-                <span class:list={["label", t.popular ? "text-white/80" : "text-subtle"]}>Tier {String(i + 1).padStart(2, "0")}</span>
-                {t.popular && (
-                  <span class="label inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-black shadow-lg">
-                    <span class="size-1.5 animate-pulse rounded-full bg-rover-red"></span> Most popular
-                  </span>
-                )}
-                {t.inKindMax && <span class="label rounded-full border border-accent/60 px-2.5 py-1 text-accent">In-kind max</span>}
+                <span class:list={["label whitespace-nowrap", t.popular ? "text-white/80" : "text-subtle"]}>Tier {String(i + 1).padStart(2, "0")}</span>
+                <div class="flex flex-wrap justify-end gap-1.5">
+                  {t.popular && (
+                    <span class="label inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-black shadow-lg">
+                      <span class="size-1.5 animate-pulse rounded-full bg-rover-red"></span> Most popular
+                    </span>
+                  )}
+                  {t.inKindMax && <span class:list={["label rounded-full border px-2.5 py-1", t.popular ? "border-white/70 text-white" : "border-accent/60 text-accent"]}>In-kind max</span>}
+                </div>
               </div>
 
               <!-- Tier illustration -->

@@ -14,8 +14,8 @@ export const SPONSOR_EMAIL = "robotics@unb.ca";
 // `min` is the starting amount in dollars (drives the contribution slider on /sponsor).
 export const tiers = [
   { name: "Shuttle Mechanic", min: 0, amount: "Under $500", range: "Up to $499", perks: ["Thank-you letter"] },
-  { name: "Rocket Scientist", min: 500, amount: "$500+", range: "$500 – $1,499", popular: true, perks: ["Name on our sponsor banner", "Name on our website's sponsor page", "Active link to your website"] },
-  { name: "Astronaut", min: 1500, amount: "$1,500+", range: "$1,500 – $4,999", inKindMax: true, perks: ["Large, central name on our sponsor banner", "Logo on our website's top banner"] },
+  { name: "Rocket Scientist", min: 500, amount: "$500+", range: "$500 – $1,499", perks: ["Name on our sponsor banner", "Name on our website's sponsor page", "Active link to your website"] },
+  { name: "Astronaut", min: 1500, amount: "$1,500+", range: "$1,500 – $4,999", popular: true, inKindMax: true, perks: ["Large, central name on our sponsor banner", "Logo on our website's top banner"] },
   { name: "Martian", min: 5000, amount: "$5,000+", range: "$5,000 and up", perks: ["Your name on the rover body's digital signage", "A custom message on the rover's digital signage"] },
 ];
 
