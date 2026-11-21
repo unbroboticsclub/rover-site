@@ -116,7 +116,7 @@ const telemetry = [
       <div class="grid items-center gap-16 lg:grid-cols-2">
         <div>
           <SectionHead index="01" label="Mission profile">
-            Engineered from<br /><span class="text-accent">first principles.</span>
+            What we're<br /><span class="text-accent">building.</span>
           </SectionHead>
           <p class="mt-8 max-w-xl text-lg text-muted">
             {currentRover} is the latest iteration of our custom rover, designed by UNB Robotics for the
@@ -142,7 +142,7 @@ const telemetry = [
           </div>
           <figcaption class="label mt-4 flex justify-between gap-4 text-subtle">
             <span>Fig. 01 — Design render, top view</span>
-            <span class="hidden sm:inline">Orbital pass</span>
+            <span class="hidden sm:inline">Sapere, {sapere.year}</span>
           </figcaption>
         </figure>
       </div>
@@ -210,8 +210,8 @@ const telemetry = [
             <h3 class="display mt-3 text-5xl">{currentRover}</h3>
             <p class="label mt-1 text-white/50">{iterum.dates}</p>
             <p class="mt-6 max-w-md border-t border-white/15 pt-6 text-white/75">
-              Designed from the lessons of Sapere and built by a new crew. The build is under way,
-              and there's room on the team for you.
+              The next version of Sapere, reworked based on what we learned at {competition.short} {sapere.year}.
+              Work is under way, and we're still taking new members.
             </p>
             <div class="mt-auto flex flex-wrap gap-3 pt-8">
               <a href="#join" class={btnRed}>Join the build</a>
@@ -279,8 +279,8 @@ const telemetry = [
   <section id="faq" class="scroll-mt-20 border-t border-line/10 bg-grid py-24 lg:py-32">
     <div class="wrap grid gap-12 lg:grid-cols-[1fr_1.6fr]">
       <div class="lg:sticky lg:top-28 lg:self-start">
-        <SectionHead index="04" label="Comms · FAQ">
-          Questions,<br />answered.
+        <SectionHead index="04" label="FAQ">
+          Common<br />questions.
         </SectionHead>
         <p class="mt-6 text-muted">
           Something else? <a href={`${MAIN_SITE}/contact`} class="text-ink underline decoration-accent decoration-2 underline-offset-4 hover:text-accent">Contact us</a>.

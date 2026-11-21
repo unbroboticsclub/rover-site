@@ -40,9 +40,9 @@ const gallery = [
         </p>
         <h1 class="display mt-4 text-[clamp(5rem,15vw,10rem)] leading-[0.82] text-ink">{sapere.name}</h1>
         <p class="mt-6 max-w-lg text-lg text-muted text-balance">
-          Each iteration of our rover gets its own name. Sapere was the first, built by 60+ UNB students and
-          taken to the {competition.name}, organized by {competition.organizer}. This year we're
-          building on it to make the next iteration, {currentRover}.
+          Sapere was the first version of our rover. More than 60 UNB students built it, and we took it to the
+          {competition.name}, run by {competition.organizer}. This year we're improving it into the next
+          version, {currentRover}.
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
           <a href="#sponsors" class={btnPrimary}>Our sponsors</a>
@@ -78,10 +78,10 @@ const gallery = [
     <div class="wrap">
       <div class="grid gap-8 lg:grid-cols-2 lg:items-end">
         <SectionHead index="01" label="Mission partners">
-          Made possible<br /><span class="text-accent">by our sponsors.</span>
+          Sapere's<br /><span class="text-accent">sponsors.</span>
         </SectionHead>
         <p class="max-w-md text-muted lg:justify-self-end">
-          Together our sponsors and partners contributed {sapere.sponsorFunding} toward rover equipment in {sapere.year}, plus {sapere.inKindSponsorship} in in-kind sponsorship.
+          Our sponsors and partners gave {sapere.sponsorFunding} toward Sapere's equipment in {sapere.year}, plus {sapere.inKindSponsorship} in parts, materials and services.
         </p>
       </div>
 
@@ -100,10 +100,10 @@ const gallery = [
       <div data-reveal class="mt-6 grid items-center gap-8 rounded-sm bg-rover-red p-8 text-white lg:grid-cols-[1fr_auto] lg:p-12">
         <div>
           <p class="label text-white/75">Now seeking sponsors</p>
-          <h3 class="display mt-3 text-4xl lg:text-5xl">Put your name on {currentRover}.</h3>
+          <h3 class="display mt-3 text-4xl lg:text-5xl">Sponsor {currentRover}.</h3>
           <p class="mt-4 max-w-2xl text-white/85">
-            As we build {currentRover}, we're looking for new partners through sponsorship tiers or donations
-            of electronics, PCB fabrication, filament, materials, software licenses, and tools.
+            We're looking for sponsors for {currentRover}, either through a sponsorship tier or by donating
+            electronics, PCB fabrication, filament, materials, software licenses or tools.
           </p>
         </div>
         <a href="/sponsor"
@@ -118,7 +118,7 @@ const gallery = [
   <section id="gallery" class="scroll-mt-20 border-t border-line/10 bg-panel py-24 lg:py-32">
     <div class="wrap">
       <SectionHead index="02" label="Mission log">
-        From the build<br />to {`${competition.short} ${sapere.year}`}.
+        Sapere<br />in photos.
       </SectionHead>
       <div class="mt-14 grid gap-4 sm:grid-cols-2">
         {gallery.map((g, i) => (
@@ -168,7 +168,7 @@ const gallery = [
   <section class="border-t border-line/10 py-24 lg:py-32">
     <div class="wrap grid gap-12 lg:grid-cols-2 lg:items-start">
       <SectionHead index="04" label="Crew wanted">
-        Help lead<br /><span class="text-accent">{currentRover}.</span>
+        Lead roles<br /><span class="text-accent">for {currentRover}.</span>
       </SectionHead>
       <div>
         <ul class="border-t border-line/15">

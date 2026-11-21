@@ -43,9 +43,9 @@ const field =
         <span aria-hidden="true">★</span> The Maritimes' first competition rover!
       </p>
       <p class="mt-6 max-w-2xl text-lg text-muted text-balance">
-        We took our first rover, {sapere.name}, to {competition.short} in {sapere.year}. Now we're going back with
-        {currentRover} for {competition.short} {iterum.year}, {iterum.dates}, designed and built entirely by UNB
-        students. Your support funds hardware, competition fees, and the team's travel to {competition.short}.
+        We took our first rover, {sapere.name}, to {competition.short} in {sapere.year}. {currentRover}, the next
+        version, competes at {competition.short} on {iterum.dates}. It's designed and built by UNB students.
+        Sponsorship pays for parts, competition fees and the team's travel.
       </p>
       <div class="mt-8 flex flex-wrap gap-3">
         <a href="#tiers" class={btnRed}>View sponsorship tiers</a>
@@ -73,17 +73,16 @@ const field =
   <section id="about" class="scroll-mt-20 py-24 lg:py-32">
     <div class="wrap grid gap-12 lg:grid-cols-2">
       <SectionHead index="01" label="The mission">
-        Been there once.<br /><span class="text-accent">Going back.</span>
+        Back to {competition.short}<br /><span class="text-accent">in {iterum.year}.</span>
       </SectionHead>
       <div class="space-y-5 text-lg text-muted lg:pt-10" data-reveal data-reveal-delay="120">
         <p>
-          In {sapere.year}, {sapere.name} became the <strong class="text-ink">Maritimes' first competition rover</strong>,
-          taking the UNB Rover Team to the {competition.name} ({sapere.dates}), organized by {competition.organizer}.
+          In {sapere.year} we took {sapere.name} to the {competition.name} ({sapere.dates}), run by
+          {competition.organizer}. It was the <strong class="text-ink">Maritimes' first competition rover</strong>.
         </p>
         <p>
-          {currentRover} is the next iteration of that rover and our return to {competition.short}, {iterum.dates}. We're
-          building on {sapere.name} rather than starting over, upgrading every subsystem, from mobility and
-          manipulation to power, autonomy, and communications, with what we learned in {sapere.year}.
+          {currentRover} is the next version of that rover, and it competes at {competition.short} on {iterum.dates}.
+          We're reworking each subsystem based on what held up in {sapere.year} and what didn't.
         </p>
         <a href="/sapere" class="label inline-flex items-center gap-2 text-accent hover:underline">See how {sapere.name} went →</a>
       </div>
@@ -100,25 +99,19 @@ const field =
           {currentRover}<span class="text-rover-red-light">.</span>
         </p>
         <p class="label mt-4 text-white/60">Latin · <em class="not-italic text-rover-red-light">adv.</em> · "again; once more"</p>
-        <blockquote class="mt-10 border-l-2 border-rover-red-light pl-6 font-display text-2xl font-bold uppercase leading-tight sm:text-3xl">
-          “{sapere.name} taught us what it takes to reach {competition.short}. {currentRover} is us doing it again, and doing it better.”
-        </blockquote>
-        <figcaption class="label mt-4 pl-6 text-white/50">The UNB Rover Team</figcaption>
       </figure>
       <div class="space-y-5 text-white/75" data-reveal data-reveal-delay="150">
         <p>
-          We don't build a brand-new rover every year. We keep building on the same one, and each iteration gets
-          its own name. The first was <strong class="text-white">{sapere.name}</strong>, Latin for "to know", for a
-          rookie team learning what it takes to design, build, and field a competition rover from scratch.
+          We don't build a new rover from scratch each year. We keep the same rover, improve it, and give each
+          version its own Latin name.
         </p>
         <p>
-          The next iteration is <strong class="text-white">{currentRover}</strong>, Latin for "again" or "once more". It's
-          a promise that {sapere.name} wasn't a one-off: the Maritimes' first competition rover team is going back to
-          {competition.short}, building on everything from {sapere.year} to make the rover stronger and more capable.
+          The first was <strong class="text-white">{sapere.name}</strong> ("to know"). It was our first season, and we
+          had a lot to learn about building and running a competition rover.
         </p>
         <p>
-          {currentRover} stands for persistence: iterating, testing, and trying again until it works. Sponsoring
-          {currentRover} means backing a team that came back.
+          The second is <strong class="text-white">{currentRover}</strong> ("again"), because we're going back to
+          {competition.short} with the same rover, improved.
         </p>
       </div>
     </div>
@@ -128,7 +121,7 @@ const field =
   <section class="border-t border-line/10 bg-panel py-24 lg:py-32">
     <div class="wrap">
       <SectionHead index="02" label="The build">
-        Six subsystems.<br /><span class="text-accent">One rover.</span>
+        The six<br /><span class="text-accent">subsystems.</span>
       </SectionHead>
       <ol class="mt-14 grid gap-px overflow-hidden rounded-sm bg-line/15 ring-1 ring-line/15 sm:grid-cols-2 lg:grid-cols-3">
         {subsystems.map((s, i) => (
@@ -147,10 +140,10 @@ const field =
     <div class="wrap">
       <div class="grid gap-8 lg:grid-cols-2 lg:items-end">
         <SectionHead index="03" label="Sponsorship tiers">
-          Pick your tier.<br /><span class="text-accent">Leave your mark.</span>
+          What each tier<br /><span class="text-accent">includes.</span>
         </SectionHead>
         <p class="max-w-md text-muted lg:justify-self-end">
-          All tiers are cumulative: each one includes every benefit of the tiers below it.
+          Each tier includes everything in the tiers below it. Use the slider to see where an amount lands.
         </p>
       </div>
 
@@ -295,12 +288,12 @@ const field =
   <section id="contact" class="scroll-mt-20 border-t border-line/10 bg-panel py-24 lg:py-32">
     <div class="wrap grid gap-16 lg:grid-cols-[1.1fr_1fr]">
       <div>
-        <SectionHead index="04" label="Get in touch">
-          Ready to sponsor<br /><span class="text-accent">{currentRover}?</span>
+        <SectionHead index="04" label="Contact">
+          Get in<br /><span class="text-accent">touch.</span>
         </SectionHead>
         <p class="mt-6 max-w-lg text-muted">
-          Tell us a little about your organization and the tier you're interested in. We're happy to put together a
-          custom package or talk through an in-kind contribution.
+          Tell us about your organization and which tier you're considering. We can also set up a custom package or
+          an in-kind donation of parts, materials or services.
         </p>
         <p class="mt-4 max-w-lg text-sm text-subtle">
           Sponsorships are managed by the UNB Robotics Chairs and Director, who look after sponsor relationships,
