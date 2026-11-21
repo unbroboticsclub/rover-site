@@ -6,6 +6,24 @@ export const MAIN_SITE = "https://unbrobotics.ca";
 // Google Form for joining the team / applying for a lead role.
 export const APPLY_FORM = "https://forms.gle/rZAJYoWXYu3qKEnS9";
 
+// Where sponsorship enquiries go.
+export const SPONSOR_EMAIL = "robotics@unb.ca";
+
+// Sponsorship tiers. Names carried over from the main site. Tiers are cumulative.
+// In-kind sponsorships are recognized up to the tier marked inKindMax.
+// `min` is the starting amount in dollars (drives the contribution slider on /sponsor).
+export const tiers = [
+  { name: "Shuttle Mechanic", min: 0, amount: "Under $500", range: "Up to $499", perks: ["Thank-you letter"] },
+  { name: "Rocket Scientist", min: 500, amount: "$500+", range: "$500 – $1,499", popular: true, perks: ["Name on our sponsor banner", "Name on our website's sponsor page", "Active link to your website"] },
+  { name: "Astronaut", min: 1500, amount: "$1,500+", range: "$1,500 – $4,999", inKindMax: true, perks: ["Large, central name on our sponsor banner", "Logo on our website's top banner"] },
+  { name: "Martian", min: 5000, amount: "$5,000+", range: "$5,000 and up", perks: ["Your name on the rover body's digital signage", "A custom message on the rover's digital signage"] },
+];
+
+// In-kind donations we can put to use.
+export const inKindNeeds = [
+  "Electronics", "PCB fabrication", "3D printing filament", "Structural materials", "Software licenses", "Engineering tools",
+];
+
 export const competition = {
   name: "Canadian International Rover Challenge",
   short: "CIRC",
@@ -21,6 +39,13 @@ export const sapere = {
   dates: "August 7–10, 2026",
   sponsorFunding: "$8,690",
   inKindSponsorship: "$7,459.08",
+};
+
+// This year's rover and its trip back to CIRC.
+export const iterum = {
+  name: currentRover,
+  year: 2027,
+  dates: "August 6–9, 2027",
 };
 
 // Where the team is based now.
@@ -88,7 +113,7 @@ export const faqs = [
   {
     question: "How can my company support Iterum?",
     answer:
-      "This year we're looking for new sponsors. We offer sponsorship tiers and also welcome donations of electronics, PCB fabrication, 3D printing filament, structural materials, software licenses, and engineering tools. See the sponsorship page on unbrobotics.ca.",
+      "This year we're looking for new sponsors. We offer sponsorship tiers and also welcome donations of electronics, PCB fabrication, 3D printing filament, structural materials, software licenses, and engineering tools. See our sponsorship page or email robotics@unb.ca.",
   },
 ];
 

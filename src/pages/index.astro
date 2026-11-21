@@ -4,7 +4,7 @@ import RoverLayout from "@/layouts/RoverLayout.astro";
 import SectionHead from "@/components/SectionHead.astro";
 import Starfield from "@/components/Starfield.astro";
 import {
-  MAIN_SITE, APPLY_FORM, competition, currentRover, sapere, stats, roles, subsystems, faqs, sponsors, base,
+  MAIN_SITE, APPLY_FORM, competition, currentRover, sapere, iterum, stats, roles, subsystems, faqs, sponsors, base,
 } from "@/data/rover.js";
 import { btnRed, btnGhost, btnGhostLight } from "@/styles/classes.js";
 
@@ -15,7 +15,7 @@ import meeting3 from "@/assets/rover/Rover_Design_Meeting_3.jpeg";
 
 const telemetry = [
   { label: "Vehicle", value: `Rover 02 · ${currentRover}` },
-  { label: "Mission", value: competition.short },
+  { label: "Mission", value: `${competition.short} ${iterum.year}` },
   { label: "Crew", value: "UNB students" },
   { label: "Base", value: base },
 ];
@@ -61,8 +61,7 @@ const sysCodes = ["MOB", "MANIP", "PWR", "NAV", "COMMS"];
     <!-- HUD corner ticks -->
     <div class="pointer-events-none absolute inset-x-4 top-20 bottom-4 hidden sm:block lg:inset-x-8" aria-hidden="true">
       <span class="absolute left-0 top-0 size-5 border-l border-t border-white/40"></span>
-      <span class="absolute right-0 top-0 size-5 border-r border-t border-white/40"></span>
-    </div>
+      <span class="absolute right-0 top-0 size-5 border-r border-t border-white/40"></span>    </div>
 
     <div class="wrap flex flex-1 flex-col justify-end pb-12 pt-32 lg:pb-16">
       <p class="label flex items-center gap-2 text-white/75" data-reveal>
@@ -81,7 +80,7 @@ const sysCodes = ["MOB", "MANIP", "PWR", "NAV", "COMMS"];
       </p>
       <div class="mt-8 flex flex-wrap gap-3" data-reveal data-reveal-delay="320">
         <a href="#join" class={btnRed}>Join the crew</a>
-        <a href={`${MAIN_SITE}/sponsor`} class={btnGhostLight}>Sponsor {currentRover}</a>
+        <a href="/sponsor" class={btnGhostLight}>Sponsor {currentRover}</a>
       </div>
     </div>
 
@@ -203,19 +202,20 @@ const sysCodes = ["MOB", "MANIP", "PWR", "NAV", "COMMS"];
           </div>
           <div class="flex flex-1 flex-col p-6 sm:p-8">
             <div class="flex items-baseline justify-between gap-4">
-              <p class="label text-white/60">Mission 02 · {competition.short}</p>
+              <p class="label text-white/60">Mission 02 · {competition.short} {iterum.year}</p>
               <p class="label flex items-center gap-2 text-rover-red-light">
                 <span class="size-1.5 animate-pulse rounded-full bg-rover-red-light"></span> In progress
               </p>
             </div>
             <h3 class="display mt-3 text-5xl">{currentRover}</h3>
+            <p class="label mt-1 text-white/50">{iterum.dates}</p>
             <p class="mt-6 max-w-md border-t border-white/15 pt-6 text-white/75">
               Designed from the lessons of Sapere and built by a new crew. The build is under way,
               and there's room on the team for you.
             </p>
             <div class="mt-auto flex flex-wrap gap-3 pt-8">
               <a href="#join" class={btnRed}>Join the build</a>
-              <a href={`${MAIN_SITE}/sponsor`} class={btnGhostLight}>Sponsor</a>
+              <a href="/sponsor" class={btnGhostLight}>Sponsor</a>
             </div>
           </div>
         </article>
@@ -248,7 +248,7 @@ const sysCodes = ["MOB", "MANIP", "PWR", "NAV", "COMMS"];
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
           <a href={APPLY_FORM} class={btnRed}>Apply now</a>
-          <a href={`${MAIN_SITE}/sponsor`} class={btnGhostLight}>Sponsor {currentRover}</a>
+          <a href="/sponsor" class={btnGhostLight}>Sponsor {currentRover}</a>
         </div>
       </div>
 

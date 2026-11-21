@@ -1,0 +1,559 @@
+---
+import RoverLayout from "@/layouts/RoverLayout.astro";
+import SectionHead from "@/components/SectionHead.astro";
+import Starfield from "@/components/Starfield.astro";
+import {
+  competition, currentRover, sapere, iterum, subsystems, tiers, inKindNeeds, sponsors, SPONSOR_EMAIL,
+} from "@/data/rover.js";
+import { btnRed, btnGhost, btnPrimary } from "@/styles/classes.js";
+
+const sysCodes = ["MOB", "MANIP", "PWR", "NAV", "COMMS"];
+
+const record = [
+  { value: "60+", label: "Students on Sapere" },
+  { value: sapere.sponsorFunding, label: "Sponsor funding raised" },
+  { value: sapere.inKindSponsorship, label: "In-kind sponsorship" },
+  { value: String(sponsors.length), label: "Sponsors & partners" },
+];
+
+const timeline = [
+  { step: `Sapere at ${competition.short} ${sapere.year}`, status: "Complete", done: true },
+  { step: `${currentRover} design & recruiting`, status: "Now", now: true },
+  { step: "Build & hardware-in-the-loop testing", status: "Upcoming" },
+  { step: `${currentRover} at ${competition.short} ${iterum.year}`, status: iterum.dates },
+];
+
+const field =
+  "mt-2 w-full rounded-sm border border-line/25 bg-page px-3 py-2.5 text-ink placeholder:text-subtle focus:border-accent focus:outline-none";
+---
+
+<RoverLayout
+  title={`Sponsor ${currentRover} | UNB Rover Team`}
+  description={`Sponsor ${currentRover}, the UNB Rover Team's second rover, on its way back to the ${competition.name}.`}
+>
+  <!-- HERO -->
+  <section class="relative isolate bg-grid pb-16 pt-32 lg:pb-24 lg:pt-40">
+    <div class="absolute inset-0 -z-10 hidden dark:block"><Starfield fade density={1.6} /></div>
+    <div class="wrap">
+      <p class="label text-subtle">
+        <span class="text-accent">Mission 02 · Seeking sponsors</span> · {competition.short} {iterum.year} · {iterum.dates}
+      </p>
+      <h1 class="display mt-4 text-[clamp(4rem,13vw,9rem)] leading-[0.85] text-ink">
+        Sponsor<br /><span class="text-accent">{currentRover}.</span>
+      </h1>
+      <p class="display mt-6 inline-flex items-center gap-3 rounded-sm bg-rover-red px-4 py-2.5 text-xl text-white sm:text-2xl">
+        <span aria-hidden="true">★</span> The Maritimes' first competition rover!
+      </p>
+      <p class="mt-6 max-w-2xl text-lg text-muted text-balance">
+        We took our first rover, {sapere.name}, to {competition.short} in {sapere.year}. Now we're going back with
+        {currentRover} for {competition.short} {iterum.year}, {iterum.dates}, designed and built entirely by UNB
+        students. Your support funds hardware, competition fees, and the team's travel to {competition.short}.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#tiers" class={btnRed}>View sponsorship tiers</a>
+        <a href="#contact" class={btnGhost}>Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACK RECORD -->
+  <section class="border-y border-line/10 bg-[#060608] text-white" aria-label={`${sapere.name} by the numbers`}>
+    <div class="wrap py-6">
+      <p class="label text-white/50">Mission 01 track record · {sapere.name}, {competition.short} {sapere.year}</p>
+    </div>
+    <dl class="wrap grid grid-cols-2 border-t border-white/15 lg:grid-cols-4">
+      {record.map((s, i) => (
+        <div data-reveal data-reveal-delay={i * 90} class:list={["py-8", i % 2 === 1 && "border-l border-white/15 pl-6", i >= 2 && "border-t border-white/15 lg:border-t-0", i === 2 && "lg:border-l lg:pl-6"]}>
+          <dd class="font-display text-4xl font-bold text-rover-red-light sm:text-5xl">{s.value}</dd>
+          <dt class="label mt-2 text-white/60">{s.label}</dt>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <!-- 01 MISSION -->
+  <section id="about" class="scroll-mt-20 py-24 lg:py-32">
+    <div class="wrap grid gap-12 lg:grid-cols-2">
+      <SectionHead index="01" label="The mission">
+        Been there once.<br /><span class="text-accent">Going back.</span>
+      </SectionHead>
+      <div class="space-y-5 text-lg text-muted lg:pt-10" data-reveal data-reveal-delay="120">
+        <p>
+          In {sapere.year}, {sapere.name} became the <strong class="text-ink">Maritimes' first competition rover</strong>,
+          taking the UNB Rover Team to the {competition.name} ({sapere.dates}), organized by {competition.organizer}.
+        </p>
+        <p>
+          {currentRover} is our second rover and our return to {competition.short}, {iterum.dates}. Every subsystem, from mobility
+          and manipulation to power, autonomy, and communications, is designed and built by UNB students, taking
+          what we learned from {sapere.name} into a stronger platform.
+        </p>        <a href="/sapere" class="label inline-flex items-center gap-2 text-accent hover:underline">See how {sapere.name} went →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE NAME -->
+  <section class="relative isolate overflow-hidden bg-[#060608] py-24 text-white lg:py-32" aria-label={`Why we named it ${currentRover}`}>
+    <div class="absolute inset-0 -z-10"><Starfield fade density={1.4} /></div>
+    <div class="wrap grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:items-center">
+      <figure data-reveal>
+        <p class="label text-white/50">Why the name</p>
+        <p class="display mt-6 text-[clamp(4rem,12vw,8rem)] leading-[0.85]">
+          {currentRover}<span class="text-rover-red-light">.</span>
+        </p>
+        <p class="label mt-4 text-white/60">Latin · <em class="not-italic text-rover-red-light">adv.</em> · "again; once more"</p>
+        <blockquote class="mt-10 border-l-2 border-rover-red-light pl-6 font-display text-2xl font-bold uppercase leading-tight sm:text-3xl">
+          “{sapere.name} taught us what it takes to reach {competition.short}. {currentRover} is us doing it again, and doing it better.”
+        </blockquote>
+        <figcaption class="label mt-4 pl-6 text-white/50">The UNB Rover Team</figcaption>
+      </figure>
+      <div class="space-y-5 text-white/75" data-reveal data-reveal-delay="150">
+        <p>
+          Every year our rover gets a new name. Our first was <strong class="text-white">{sapere.name}</strong>, Latin for
+          "to know", for a rookie team learning what it takes to design, build, and field a competition rover
+          from scratch.
+        </p>
+        <p>
+          Our second is <strong class="text-white">{currentRover}</strong>, Latin for "again" or "once more". It's a
+          promise that {sapere.name} wasn't a one-off: the Maritimes' first competition rover team is going back to
+          {competition.short}, carrying every lesson from {sapere.year} into a stronger, more capable rover.
+        </p>
+        <p>
+          {currentRover} stands for persistence: iterating, testing, and trying again until it works. Sponsoring
+          {currentRover} means backing a team that came back.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 THE BUILD -->
+  <section class="border-t border-line/10 bg-panel py-24 lg:py-32">
+    <div class="wrap">
+      <SectionHead index="02" label="The build">
+        Five subsystems.<br /><span class="text-accent">One rover.</span>
+      </SectionHead>
+      <ol class="mt-14 grid border-t border-line/15 sm:grid-cols-2 lg:grid-cols-5">
+        {subsystems.map((s, i) => (
+          <li data-reveal data-reveal-delay={i * 90} class="border-b border-line/15 py-8 sm:px-6 sm:[&:nth-child(odd)]:pl-0 lg:border-b-0 lg:[&:not(:first-child)]:border-l lg:px-5 lg:[&:nth-child(odd):not(:first-child)]:pl-5">
+            <span class="label text-accent">SYS-{String(i + 1).padStart(2, "0")} · {sysCodes[i]}</span>
+            <h3 class="mt-3 break-words font-display text-3xl font-bold uppercase text-ink lg:text-2xl">{s.name}</h3>
+            <p class="mt-3 text-sm text-muted">{s.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 03 TIERS -->
+  <section id="tiers" class="scroll-mt-20 py-24 lg:py-32">
+    <div class="wrap">
+      <div class="grid gap-8 lg:grid-cols-2 lg:items-end">
+        <SectionHead index="03" label="Sponsorship tiers">
+          Pick your tier.<br /><span class="text-accent">Leave your mark.</span>
+        </SectionHead>
+        <p class="max-w-md text-muted lg:justify-self-end">
+          All tiers are cumulative: each one includes every benefit of the tiers below it.
+        </p>
+      </div>
+
+      <!-- Contribution planner: drag the slider, the matching tier lights up -->
+      <div data-reveal class="mt-14 rounded-md border border-line/15 bg-panel p-6 sm:p-8">
+        <div class="flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <p class="label text-subtle">Plan your contribution</p>
+            <p class="mt-2 font-display text-6xl font-bold leading-none text-ink sm:text-7xl"><output id="budget-out">$1,000</output></p>
+          </div>
+          <div class="text-right">
+            <p class="label text-subtle">Your tier</p>
+            <p class="mt-2 font-display text-3xl font-bold uppercase text-accent sm:text-4xl" id="budget-tier">{tiers.find((t) => t.popular)?.name}</p>
+          </div>
+        </div>
+        <div class="relative mt-8">
+          <!-- Each tier gets an equal quarter of the track; the script maps position to dollars. -->
+          <input id="budget" type="range" min="0" max={tiers.length * 100} step="1" value="150"
+                 aria-label="Contribution amount" aria-valuetext="$1,000" class="budget-range w-full" style="--pct: 37.5%" />
+          <div class="relative mt-3 grid h-10" style={`grid-template-columns: repeat(${tiers.length}, minmax(0, 1fr))`} aria-hidden="true">
+            {tiers.map((t, i) => (
+              <button type="button" data-jump={i === 0 ? 50 : i * 100} tabindex="-1"
+                      class="label border-l border-line/25 pl-2 text-left text-subtle duration-200 hover:text-accent">
+                <span class="hidden sm:inline">{t.name} · </span>{t.amount.replace("Under ", "<")}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {tiers.map((t, i) => (
+          <div data-reveal data-reveal-delay={i * 90}>
+            <article data-tier-card={i}
+                     class:list={["tier-card group relative flex h-full flex-col overflow-hidden rounded-md p-7",
+                       t.popular ? "is-popular bg-gradient-to-b from-rover-red-light to-rover-red text-white" : "border border-line/15 bg-page"]}>
+              <div class="tier-spot pointer-events-none absolute inset-0" aria-hidden="true"></div>
+
+              <div class="relative flex items-center justify-between gap-3">
+                <span class:list={["label", t.popular ? "text-white/80" : "text-subtle"]}>Tier {String(i + 1).padStart(2, "0")}</span>
+                {t.popular && (
+                  <span class="label inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-black shadow-lg">
+                    <span class="size-1.5 animate-pulse rounded-full bg-rover-red"></span> Most popular
+                  </span>
+                )}
+                {t.inKindMax && <span class="label rounded-full border border-accent/60 px-2.5 py-1 text-accent">In-kind max</span>}
+              </div>
+
+              <!-- Tier illustration -->
+              <div class:list={["tier-icon relative my-6 flex h-28 items-center justify-center", t.popular ? "text-white" : "text-ink"]} aria-hidden="true">
+                <svg viewBox="0 0 120 120" class="h-full w-auto overflow-visible" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                  {i === 0 && (
+                    <g>
+                      <g class="ic-gear" style="transform-origin: 74px 50px">
+                        <circle cx="74" cy="50" r="20" stroke-width="9" stroke-dasharray="7 5.566" stroke-linecap="butt" />
+                        <circle cx="74" cy="50" r="13" />
+                        <circle cx="74" cy="50" r="5" class="ic-fill" stroke="none" />
+                      </g>
+                      <g class="ic-wrench" style="transform-origin: 34px 92px">
+                        <path d="M30 96 L54 72" stroke-width="9" />
+                        <path d="M50 60 a13 13 0 1 0 16 16 l-7 -1 -9 -9 z" />
+                      </g>
+                    </g>
+                  )}
+                  {i === 1 && (
+                    <g class="ic-rocket">
+                      <path class="ic-flame ic-fill" d="M51 80 Q60 110 69 80 Z" stroke="none" />
+                      <path d="M60 14 C76 28 80 50 75 80 H45 C40 50 44 28 60 14 Z" />
+                      <circle cx="60" cy="44" r="8" class="ic-fill" />
+                      <path d="M45 62 L32 84 L46 81 M75 62 L88 84 L74 81" />
+                    </g>
+                  )}
+                  {i === 2 && (
+                    <g>
+                      <defs><clipPath id="visor-clip"><rect x="34" y="40" width="52" height="32" rx="16" /></clipPath></defs>
+                      <circle cx="60" cy="56" r="36" />
+                      <rect x="34" y="40" width="52" height="32" rx="16" class="ic-visor" />
+                      <g clip-path="url(#visor-clip)"><rect class="ic-glint" x="20" y="30" width="9" height="60" fill="white" stroke="none" opacity=".55" /></g>
+                      <path d="M36 90 Q60 104 84 90" />
+                      <path d="M90 30 L100 18" stroke-width="3" />
+                      <circle cx="101" cy="17" r="4" class="ic-fill ic-blink" stroke="none" />
+                    </g>
+                  )}
+                  {i === 3 && (
+                    <g>
+                      <circle cx="60" cy="60" r="27" class="ic-fill" stroke="none" />
+                      <circle cx="50" cy="52" r="5" fill="black" opacity=".18" stroke="none" />
+                      <circle cx="68" cy="70" r="7" fill="black" opacity=".18" stroke="none" />
+                      <circle cx="70" cy="48" r="3" fill="black" opacity=".18" stroke="none" />
+                      <g class="ic-orbit" style="transform-origin: 60px 60px">
+                        <ellipse cx="60" cy="60" rx="52" ry="17" transform="rotate(-18 60 60)" stroke-width="2" stroke-dasharray="3 6" />
+                        <circle cx="110" cy="44" r="5" fill="currentColor" stroke="none" />
+                      </g>
+                    </g>
+                  )}
+                </svg>
+              </div>
+
+              <h3 class:list={["relative font-display text-3xl font-bold uppercase leading-none", t.popular ? "text-white" : "text-ink"]}>{t.name}</h3>
+              <p class:list={["relative mt-2 font-display text-4xl font-bold", t.popular ? "text-white" : "text-accent"]}>{t.amount}</p>
+              <p class:list={["label relative mt-1", t.popular ? "text-white/75" : "text-subtle"]}>{t.range}</p>
+
+              <!-- Altitude meter: how far up the ladder this tier sits -->
+              <div class="relative mt-5 flex items-center gap-3" aria-hidden="true">
+                <span class:list={["label", t.popular ? "text-white/70" : "text-subtle"]}>Altitude</span>
+                <span class="flex flex-1 gap-1">
+                  {tiers.map((_, j) => (
+                    <span class:list={["h-1.5 flex-1 rounded-full", j <= i ? (t.popular ? "bg-white" : "bg-accent") : (t.popular ? "bg-white/25" : "bg-line/15")]}></span>
+                  ))}
+                </span>
+              </div>
+
+              <ul class:list={["relative mt-6 grow space-y-2.5 border-t pt-6 text-sm", t.popular ? "border-white/25 text-white" : "border-line/15 text-muted"]}>
+                {i > 0 && (
+                  <li class:list={["label !tracking-[0.1em]", t.popular ? "text-white/75" : "text-subtle"]}>Everything in {tiers[i - 1].name}, plus:</li>
+                )}
+                {t.perks.map((p) => (
+                  <li class="flex gap-2.5">
+                    <svg viewBox="0 0 16 16" class:list={["mt-0.5 size-4 shrink-0", t.popular ? "text-white" : "text-accent"]} fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                    {p}
+                  </li>
+                ))}
+              </ul>
+
+              <a href="#contact" data-tier={t.name}
+                 class:list={["tier-pick relative mt-8 inline-flex items-center justify-center gap-2 rounded-sm px-5 py-3 font-mono text-xs font-semibold uppercase tracking-[0.14em] duration-200",
+                   t.popular ? "bg-white text-black hover:bg-black hover:text-white" : "border border-line/25 text-ink hover:border-accent hover:bg-accent hover:text-white"]}>
+                Get started <span aria-hidden="true" class="duration-200 group-hover:translate-x-1">→</span>
+              </a>
+            </article>
+          </div>
+        ))}
+      </div>
+      <p class="mt-6 text-sm text-subtle">
+        * All tiers are cumulative. In-kind and equipment donations are welcome too, and are recognized up to the
+        {tiers.find((t) => t.inKindMax)?.name} tier. <a href="#contact" class="text-ink underline decoration-accent decoration-2 underline-offset-4 hover:text-accent">Contact us</a> to discuss.
+      </p>
+    </div>
+  </section>
+
+  <!-- 04 CONTACT -->
+  <section id="contact" class="scroll-mt-20 border-t border-line/10 bg-panel py-24 lg:py-32">
+    <div class="wrap grid gap-16 lg:grid-cols-[1.1fr_1fr]">
+      <div>
+        <SectionHead index="04" label="Get in touch">
+          Ready to sponsor<br /><span class="text-accent">{currentRover}?</span>
+        </SectionHead>
+        <p class="mt-6 max-w-lg text-muted">
+          Tell us a little about your organization and the tier you're interested in. We're happy to put together a
+          custom package or talk through an in-kind contribution.
+        </p>
+
+        <form id="sponsor-form" class="mt-10 grid gap-5 sm:grid-cols-2" data-email={SPONSOR_EMAIL}>
+          <label class="label text-subtle">First name
+            <input name="first" required autocomplete="given-name" class={field} />
+          </label>
+          <label class="label text-subtle">Last name
+            <input name="last" required autocomplete="family-name" class={field} />
+          </label>
+          <label class="label text-subtle sm:col-span-2">Company / organization
+            <input name="org" autocomplete="organization" class={field} />
+          </label>
+          <label class="label text-subtle sm:col-span-2">Sponsorship tier
+            <select name="tier" class={field}>
+              <option value="">Select a tier…</option>
+              {tiers.map((t) => <option value={t.name}>{t.name} ({t.range})</option>)}
+              <option value="In-kind / equipment donation">In-kind / equipment donation</option>
+            </select>
+          </label>
+          <label class="label text-subtle sm:col-span-2">Message (optional)
+            <textarea name="message" rows="4" class={`${field} resize-y`}></textarea>
+          </label>
+          <div class="flex flex-wrap items-center gap-4 sm:col-span-2">
+            <button type="submit" class={btnRed}>Send email →</button>
+            <p class="text-sm text-subtle">Opens your email app with your details filled in.</p>
+          </div>
+        </form>
+      </div>
+
+      <aside class="space-y-10 lg:pt-28">
+        <div>
+          <p class="label text-subtle">Email</p>
+          <a href={`mailto:${SPONSOR_EMAIL}`} class="mt-2 block font-display text-3xl font-bold text-ink hover:text-accent">{SPONSOR_EMAIL}</a>
+        </div>
+        <div>
+          <p class="label text-subtle">Location</p>
+          <p class="mt-2 text-ink">University of New Brunswick<br /><span class="text-muted">Fredericton, NB, Canada</span></p>
+        </div>
+        <div>
+          <p class="label text-subtle">In-kind donations</p>
+          <ul class="mt-3 flex flex-wrap gap-2">
+            {inKindNeeds.map((n) => (
+              <li class="rounded-sm border border-line/20 px-3 py-1.5 text-sm text-muted">{n}</li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <p class="label text-subtle">Mission timeline</p>
+          <ol class="mt-4 border-l border-line/20">
+            {timeline.map((t) => (
+              <li class="relative pb-5 pl-6 last:pb-0">
+                <span class:list={["absolute -left-[5px] top-1.5 size-2.5 rounded-full", t.done ? "bg-accent" : t.now ? "bg-rover-red-light ring-4 ring-rover-red/25" : "bg-line/30"]} aria-hidden="true"></span>
+                <p class="text-ink">{t.step}</p>
+                <p class:list={["label mt-1", t.done || t.now ? "text-accent" : "text-subtle"]}>{t.done ? "✓ " : ""}{t.status}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </aside>
+    </div>
+  </section>
+</RoverLayout>
+
+<script>
+  // "Get started" on a tier pre-selects it in the form.
+  const form = document.getElementById("sponsor-form") as HTMLFormElement | null;
+  document.querySelectorAll<HTMLAnchorElement>(".tier-pick").forEach((a) => {
+    a.addEventListener("click", () => {
+      const select = form?.elements.namedItem("tier") as HTMLSelectElement | null;
+      if (select && a.dataset.tier) select.value = a.dataset.tier;
+    });
+  });
+
+  // No backend: the form opens the visitor's email app with a pre-filled message.
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const d = new FormData(form);
+    const get = (k: string) => String(d.get(k) ?? "").trim();
+    const name = `${get("first")} ${get("last")}`.trim();
+    const tier = get("tier") || "Not sure yet";
+    const subject = `Iterum sponsorship: ${tier}${get("org") ? ` (${get("org")})` : ""}`;
+    const body = [
+      `Name: ${name}`,
+      `Organization: ${get("org") || "-"}`,
+      `Tier: ${tier}`,
+      "",
+      get("message"),
+    ].join("\n");
+    window.location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+</script>
+
+<script>
+  import { tiers } from "@/data/rover.js";
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const finePointer = window.matchMedia("(pointer: fine)").matches;
+  const cards = [...document.querySelectorAll<HTMLElement>("[data-tier-card]")];
+
+  // Cursor spotlight + gentle 3D tilt on each tier card.
+  cards.forEach((card) => {
+    card.addEventListener("pointermove", (e) => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width;
+      const y = (e.clientY - r.top) / r.height;
+      card.style.setProperty("--mx", `${x * 100}%`);
+      card.style.setProperty("--my", `${y * 100}%`);
+      if (!reduceMotion && finePointer) {
+        card.style.setProperty("--rx", `${(0.5 - y) * 7}deg`);
+        card.style.setProperty("--ry", `${(x - 0.5) * 9}deg`);
+      }
+    });
+    card.addEventListener("pointerleave", () => {
+      card.style.setProperty("--rx", "0deg");
+      card.style.setProperty("--ry", "0deg");
+    });
+  });
+
+  // Contribution planner: the slider picks the matching tier.
+  const range = document.getElementById("budget") as HTMLInputElement | null;
+  const out = document.getElementById("budget-out");
+  const tierOut = document.getElementById("budget-tier");
+  const select = (document.getElementById("sponsor-form") as HTMLFormElement | null)?.elements.namedItem("tier") as HTMLSelectElement | null;
+  const fmt = new Intl.NumberFormat("en-CA", { style: "currency", currency: "CAD", maximumFractionDigits: 0 });
+
+  // Piecewise scale: each tier owns 100 slider steps, from its min up to the next tier's min.
+  const TOP = 10000;
+  function toDollars(pos: number) {
+    const i = Math.min(Math.floor(pos / 100), tiers.length - 1);
+    const lo = tiers[i].min;
+    const hi = tiers[i + 1]?.min ?? TOP;
+    const raw = lo + ((pos - i * 100) / 100) * (hi - lo);
+    const step = raw < 1500 ? 25 : raw < 5000 ? 50 : 250;
+    return Math.min(Math.round(raw / step) * step, i + 1 < tiers.length ? hi - 1 : TOP);
+  }
+
+  function update() {
+    if (!range) return;
+    const pos = Number(range.value);
+    const max = Number(range.max);
+    const v = toDollars(pos);
+    let idx = 0;
+    tiers.forEach((t, i) => { if (v >= t.min) idx = i; });
+    range.style.setProperty("--pct", `${(pos / max) * 100}%`);
+    const label = pos >= max ? `${fmt.format(TOP).replace("CA", "")}+` : fmt.format(v).replace("CA", "");
+    if (out) out.textContent = label;
+    range.setAttribute("aria-valuetext", `${label}, ${tiers[idx].name}`);
+    if (tierOut) tierOut.textContent = tiers[idx].name;
+    cards.forEach((c, i) => c.classList.toggle("is-active", i === idx));
+    if (select) select.value = tiers[idx].name;
+  }
+  range?.addEventListener("input", update);
+
+  // Clicking a tier label under the slider, or a card itself, jumps the slider there.
+  document.querySelectorAll<HTMLButtonElement>("[data-jump]").forEach((b) =>
+    b.addEventListener("click", () => { if (range) { range.value = b.dataset.jump!; update(); } }),
+  );
+  cards.forEach((c, i) =>
+    c.addEventListener("click", (e) => {
+      if ((e.target as HTMLElement).closest("a")) return;
+      if (range) { range.value = String(i === 0 ? 50 : i * 100); update(); }
+    }),
+  );
+  update();
+</script>
+
+<style>
+  /* ---------- Tier cards ---------- */
+  .tier-card {
+    --mx: 50%;
+    --my: 0%;
+    --rx: 0deg;
+    --ry: 0deg;
+    --lift: 0px;
+    --icon-fill: rgb(var(--accent));
+    transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(var(--lift));
+    transition: transform 0.25s ease-out, box-shadow 0.3s, border-color 0.3s;
+    cursor: pointer;
+  }
+  .tier-card.is-popular { --icon-fill: #fff; box-shadow: 0 20px 60px -20px rgb(242 53 58 / 0.6); }
+  .tier-card:hover { --lift: -4px; }
+  .tier-card.is-active {
+    --lift: -8px;
+    border-color: rgb(var(--accent));
+    box-shadow: 0 0 0 2px rgb(var(--accent)), 0 24px 60px -24px rgb(var(--accent) / 0.7);
+  }
+  .tier-card.is-popular.is-active { box-shadow: 0 0 0 2px #fff, 0 0 0 5px rgb(242 53 58), 0 28px 70px -20px rgb(242 53 58 / 0.8); }
+
+  .tier-spot {
+    opacity: 0;
+    transition: opacity 0.3s;
+    background: radial-gradient(420px circle at var(--mx) var(--my), rgb(var(--accent) / 0.16), transparent 45%);
+  }
+  .is-popular .tier-spot { background: radial-gradient(420px circle at var(--mx) var(--my), rgb(255 255 255 / 0.22), transparent 45%); }
+  .tier-card:hover .tier-spot, .tier-card.is-active .tier-spot { opacity: 1; }
+
+  /* ---------- Illustrations ---------- */
+  .ic-fill { fill: var(--icon-fill); }
+  .ic-visor { fill: rgb(var(--accent) / 0.25); }
+  .ic-gear, .ic-wrench, .ic-rocket, .ic-glint, .ic-orbit, .ic-flame { transform-box: view-box; }
+
+  .ic-orbit { animation: spin 22s linear infinite; }
+  .ic-blink { animation: blink 1.6s ease-in-out infinite; }
+  .ic-flame { transform-origin: 60px 80px; transform: scaleY(0.6); transition: transform 0.3s; }
+  .ic-rocket { transition: transform 0.4s cubic-bezier(0.3, 1.6, 0.5, 1); }
+  .ic-glint { transform: translateX(-30px) skewX(-20deg); }
+
+  .tier-card:hover .ic-gear, .tier-card.is-active .ic-gear { animation: spin 3.5s linear infinite; }
+  .tier-card:hover .ic-wrench, .tier-card.is-active .ic-wrench { animation: wrench 1.2s ease-in-out infinite; }
+  .tier-card:hover .ic-rocket, .tier-card.is-active .ic-rocket { transform: translateY(-10px); }
+  .tier-card:hover .ic-flame, .tier-card.is-active .ic-flame { animation: flicker 0.12s ease-in-out infinite alternate; }
+  .tier-card:hover .ic-glint, .tier-card.is-active .ic-glint { animation: glint 1.6s ease-in-out infinite; }
+  .tier-card:hover .ic-orbit, .tier-card.is-active .ic-orbit { animation-duration: 5s; }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes blink { 50% { opacity: 0.2; } }
+  @keyframes wrench { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-22deg); } }
+  @keyframes flicker { from { transform: scaleY(0.9); } to { transform: scaleY(1.25); } }
+  @keyframes glint { from { transform: translateX(-30px) skewX(-20deg); } to { transform: translateX(110px) skewX(-20deg); } }
+
+  /* ---------- Contribution slider ---------- */
+  .budget-range {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 8px;
+    border-radius: 999px;
+    background: linear-gradient(to right, rgb(var(--accent)) var(--pct), rgb(var(--line) / 0.15) var(--pct));
+    cursor: pointer;
+  }
+  .budget-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgb(var(--accent));
+    border: 4px solid rgb(var(--page));
+    box-shadow: 0 0 0 2px rgb(var(--accent)), 0 0 24px rgb(var(--accent) / 0.7);
+    transition: transform 0.15s;
+  }
+  .budget-range::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgb(var(--accent));
+    border: 4px solid rgb(var(--page));
+    box-shadow: 0 0 0 2px rgb(var(--accent)), 0 0 24px rgb(var(--accent) / 0.7);
+  }
+  .budget-range:active::-webkit-slider-thumb { transform: scale(1.15); }
+  .budget-range:focus-visible { outline: 2px solid rgb(var(--accent)); outline-offset: 6px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tier-card, .ic-rocket, .ic-flame { transition: none; }
+    .ic-orbit, .ic-blink, .ic-gear, .ic-wrench, .ic-flame, .ic-glint { animation: none !important; }
+  }
+</style>
