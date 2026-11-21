@@ -36,7 +36,7 @@ export const meetings = {
 // Sapere's 2026 season.
 export const stats = [
   { value: "60+", label: "Active Participants", body: "Students from across UNB designing CAD, writing firmware, and building system diagrams." },
-  { value: "200+", label: "Hours of Combined Work", body: "Mechanical prototyping, design reviews, electrical architecture, and software development." },
+  { value: "300+", label: "Hours of Combined Work", body: "Mechanical prototyping, design reviews, electrical architecture, and software development." },
   { value: sapere.sponsorFunding, label: "Sponsor & Partner Funding", body: "Contributed by our sponsors and partners toward Sapere's rover equipment." },
   { value: sapere.inKindSponsorship, label: "In-Kind Sponsorship", body: "Equipment, materials, and services donated by our sponsors and partners toward Sapere (CAD)." },
 ];
