@@ -12,17 +12,15 @@ import roverBuilding from "@/assets/rover/circ2026/rover-building.JPG";
 import circSign from "@/assets/rover/circ2026/circ-sign.JPG";
 import sponsorBanner from "@/assets/rover/circ2026/sponsor-banner.jpg";
 import meeting1 from "@/assets/rover/Rover_Design_Meeting_1.jpeg";
-import meeting3 from "@/assets/rover/Rover_Design_Meeting_3.jpeg";
 import meeting from "@/assets/rover/roverprojectdesignmeeting.JPG";
 
-// The second photo (index 1) is shown as the large featured tile.
+// The first photo spans the full width on its own row; the rest sit two per row.
 const gallery = [
+  { src: circSign, alt: "Canadian International Rover Challenge sign outside the Badlands Community Facility" },
   { src: teamPhoto, alt: "UNB Rover Team members with Sapere and the sponsor banner at CIRC 2026" },
   { src: roverBuilding2, alt: "Sapere's electronics and drivetrain laid out on the floor of the CIRC 2026 pit area" },
-  { src: circSign, alt: "Canadian International Rover Challenge sign outside the Badlands Community Facility" },
   { src: roverBuilding, alt: "A team member working on Sapere at the team's bench during CIRC 2026" },
   { src: sponsorBanner, alt: "Thank you to our sponsors banner at CIRC 2026" },
-  { src: meeting3, alt: "Sapere design meeting" },
   { src: meeting1, alt: "Sapere design meeting in Head Hall" },
   { src: meeting, alt: "Sapere design session" },
 ];
@@ -122,15 +120,17 @@ const gallery = [
       <SectionHead index="02" label="Mission log">
         From the build<br />to {`${competition.short} ${sapere.year}`}.
       </SectionHead>
-      <div class="mt-14 grid grid-flow-dense grid-cols-2 gap-3 lg:grid-cols-4">
+      <div class="mt-14 grid gap-4 sm:grid-cols-2">
         {gallery.map((g, i) => (
-          <figure data-reveal data-reveal-delay={(i % 4) * 70} class:list={["overflow-hidden rounded-sm", i === 1 && "col-span-2 row-span-2"]}>
+          <figure data-reveal data-reveal-delay={i === 0 ? 0 : ((i + 1) % 2) * 70} class:list={["overflow-hidden rounded-sm", i === 0 && "sm:col-span-2"]}>
             <Image
               src={g.src}
               alt={g.alt}
-              widths={[480, 900]}
-              sizes={i === 1 ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 1024px) 25vw, 50vw"}
-              class="size-full aspect-[4/3] object-cover duration-500 hover:scale-[1.03]"
+              width={i === 0 ? 2400 : 2000}
+              widths={i === 0 ? [800, 1200, 1800, 2400] : [800, 1200, 1600, 2000]}
+              quality={90}
+              sizes={i === 0 ? "(min-width: 1280px) 1184px, 100vw" : "(min-width: 1280px) 584px, (min-width: 640px) 50vw, 100vw"}
+              class:list={["size-full object-cover duration-500 hover:scale-[1.03]", i === 0 ? "aspect-[16/9]" : "aspect-[4/3]"]}
             />
           </figure>
         ))}
@@ -138,10 +138,36 @@ const gallery = [
     </div>
   </section>
 
+  <!-- SYSTEM DESIGN -->
+  <section id="system-design" class="scroll-mt-20 py-24 lg:py-32">
+    <div class="wrap">
+      <div class="grid gap-8 lg:grid-cols-2 lg:items-end">
+        <SectionHead index="03" label="System design">
+          Power<br /><span class="text-accent">architecture.</span>
+        </SectionHead>
+        <p class="max-w-md text-muted lg:justify-self-end">
+          Sapere's power tree: a 12 V 100 Ah LiFePO₄ battery feeds the drive motors, onboard
+          computer, radios, and arm servos through an e-stop contactor and a fused distribution
+          block. Each branch is labelled with its fuse rating, wire gauge, and worst-case load.
+        </p>
+      </div>
+      <figure class="mt-14" data-reveal>
+        <div class="overflow-x-auto rounded-sm bg-white p-4 ring-1 ring-line/10 sm:p-6">
+          <img src="/images/sapere-power-tree.svg" alt="Sapere power distribution diagram: a 12 V LiFePO4 battery feeds an e-stop contactor and a 12 V fuse block, which branches to the RoboClaw motor controllers and drive motors, the WiFi router, a cooling fan, a DC-AC inverter powering the Mac Mini and its USB devices, and a 6 V buck converter powering the arm servos. Each branch shows its fuse and wire gauge."
+               width="1532" height="632" loading="lazy" class="h-auto w-full min-w-[960px]" />
+        </div>
+        <figcaption class="label mt-4 flex flex-wrap justify-between gap-4 text-subtle">
+          <span>Fig. 02 — Sapere power tree, worst-case loads</span>
+          <a href="/images/sapere-power-tree.svg" target="_blank" rel="noopener" class="hover:text-accent">Open full size ↗</a>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
   <!-- RECRUITING -->
-  <section class="py-24 lg:py-32">
+  <section class="border-t border-line/10 py-24 lg:py-32">
     <div class="wrap grid gap-12 lg:grid-cols-2 lg:items-start">
-      <SectionHead index="03" label="Crew wanted">
+      <SectionHead index="04" label="Crew wanted">
         Help lead<br /><span class="text-accent">{currentRover}.</span>
       </SectionHead>
       <div>
