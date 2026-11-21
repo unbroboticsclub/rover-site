@@ -4,7 +4,7 @@ import RoverLayout from "@/layouts/RoverLayout.astro";
 import SectionHead from "@/components/SectionHead.astro";
 import Starfield from "@/components/Starfield.astro";
 import {
-  MAIN_SITE, APPLY_FORM, competition, currentRover, sapere, iterum, stats, roles, subsystems, faqs, sponsors, base,
+  MAIN_SITE, APPLY_FORM, competition, currentRover, sapere, iterum, stats, roles, allLeadDuties, subsystems, faqs, sponsors, base,
 } from "@/data/rover.js";
 import { btnRed, btnGhost, btnGhostLight } from "@/styles/classes.js";
 
@@ -253,7 +253,8 @@ const sysCodes = ["MOB", "MANIP", "PWR", "NAV", "COMMS"];
         </div>
       </div>
 
-      <ul class="self-end border-t border-white/15">
+      <div class="self-end">
+      <ul class="border-t border-white/15">
         {roles.map((r, i) => (
           <li data-reveal data-reveal-delay={i * 90}>
             <a href={APPLY_FORM} class="group grid grid-cols-[auto_1fr_auto] items-center gap-6 border-b border-white/15 py-6 duration-200 hover:bg-white/[0.04]">
@@ -267,6 +268,11 @@ const sysCodes = ["MOB", "MANIP", "PWR", "NAV", "COMMS"];
           </li>
         ))}
       </ul>
+      <div class="mt-6 rounded-sm border border-white/15 p-5" data-reveal>
+        <p class="label text-rover-red-light">All rover leads</p>
+        <p class="mt-2 text-sm text-white/70">{allLeadDuties}</p>
+      </div>
+      </div>
     </div>
   </section>
 

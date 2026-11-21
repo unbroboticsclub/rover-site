@@ -67,13 +67,18 @@ export const stats = [
 
 // Lead positions we're currently recruiting for.
 export const roles = [
-  { title: "Mobility Lead", focus: "Chassis, wheels, drivetrain, and motor control" },
-  { title: "Manipulation Lead", focus: "Arm, gripper, interchangeable tools, and arm controls" },
-  { title: "Power & Electrical Lead", focus: "Battery, power distribution, wiring harnesses, connectors, and emergency stop" },
-  { title: "Autonomy & Navigation Lead", focus: "Localization, route planning, and autonomous driving" },
-  { title: "Communications & Operator Systems Lead", focus: "Rover radios, antennas, base station, video feeds, telemetry, and operator controls" },
-  { title: "Project Manager", focus: "Deadlines and making sure requirements are met" },
+  { title: "Mobility Lead", focus: "Structural chassis, suspension, wheels, drivetrain, motor control and tuning, and testing traction, braking, and payload capacity" },
+  { title: "Manipulation Lead", focus: "Arm, gripper, interchangeable tools, joint controls, and testing reach, lifting capacity, and grasping" },
+  { title: "Mechanical Integration Lead", focus: "Master Fusion assembly, component layout, enclosures, brackets, mounting points, ventilation, cable-routing space, and access for assembly and repairs" },
+  { title: "Power & Electrical Lead", focus: "Battery, power distribution, fuses, wire gauge and ampacity, harness design and labeling, connector selection and pinouts, emergency-stop hardware, STM32 Nucleo firmware, and electrical testing" },
+  { title: "Autonomy & Navigation Lead", focus: "Localization, route planning, autonomous driving, obstacle avoidance, autonomous task commands, and maintaining the ROS rover model for visualization in RViz" },
+  { title: "Communications & Operator Systems Lead", focus: "Rover radios, antennas, base station, video feeds, telemetry, operator controls, onboard computer startup, and the Mac-side interface to the Nucleo" },
+  { title: "Project Manager", focus: "Deadlines, competition requirements, coordination between leads, integrated rover testing, tracking issues through resolution, safety coordination, and compiling the safety report with input from each lead" },
 ];
+
+// Responsibilities every rover lead shares, shown under the roles list.
+export const allLeadDuties =
+  "Onboard their members, maintain their team's introduction document and dossier, keep current designs and test instructions easy to find, and submit part requests with specifications, cost, and date needed.";
 
 // The five subsystem teams that build each rover (matching the lead roles above).
 export const subsystems = [
@@ -93,7 +98,7 @@ export const faqs = [
   {
     question: "Is the team recruiting?",
     answer:
-      "Yes! We're currently recruiting leads for mobility, manipulation, power and electrical, autonomy and navigation, and communications and operator systems, plus a project manager. General members are always welcome too.",
+      "Yes! We're currently recruiting leads for mobility, manipulation, mechanical integration, power and electrical, autonomy and navigation, and communications and operator systems, plus a project manager. General members are always welcome too.",
   },
   {
     question: "Who can join the rover team?",

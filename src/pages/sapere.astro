@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 import RoverLayout from "@/layouts/RoverLayout.astro";
 import SectionHead from "@/components/SectionHead.astro";
 import Starfield from "@/components/Starfield.astro";
-import { MAIN_SITE, APPLY_FORM, competition, currentRover, sapere, stats, sponsors, roles } from "@/data/rover.js";
+import { MAIN_SITE, APPLY_FORM, competition, currentRover, sapere, stats, sponsors, roles, allLeadDuties } from "@/data/rover.js";
 import { btnPrimary, btnRed, btnGhost } from "@/styles/classes.js";
 
 import teamPhoto from "@/assets/rover/circ2026/team-photo.jpg";
@@ -175,10 +175,11 @@ const gallery = [
           {roles.map((r) => (
             <li class="flex flex-col gap-1 border-b border-line/15 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
               <span class="font-display text-2xl font-bold uppercase text-ink">{r.title}</span>
-              <span class="text-sm text-subtle sm:text-right">{r.focus}</span>
+              <span class="text-sm text-subtle sm:max-w-md sm:text-right">{r.focus}</span>
             </li>
           ))}
         </ul>
+        <p class="mt-5 text-sm text-subtle"><span class="label text-accent">All rover leads</span> · {allLeadDuties}</p>
         <div class="mt-8 flex flex-wrap gap-3">
           <a href={APPLY_FORM} class={btnRed}>Apply now</a>
           <a href="/#faq" class={btnGhost}>Read the FAQ</a>
