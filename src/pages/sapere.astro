@@ -3,14 +3,11 @@ import { Image } from "astro:assets";
 import RoverLayout from "@/layouts/RoverLayout.astro";
 import SectionHead from "@/components/SectionHead.astro";
 import Starfield from "@/components/Starfield.astro";
-import { MAIN_SITE, competition, currentRover, sapere, stats, sponsors, roles } from "@/data/rover.js";
+import { MAIN_SITE, APPLY_FORM, competition, currentRover, sapere, stats, sponsors, roles } from "@/data/rover.js";
 import { btnPrimary, btnRed, btnGhost } from "@/styles/classes.js";
 
 import teamPhoto from "@/assets/rover/circ2026/team-photo.jpg";
 import sapereBanner from "@/assets/rover/circ2026/sapere-sponsor-banner.jpg";
-import sapereSide from "@/assets/rover/circ2026/sapere-pit-side.jpg";
-import sapereFront from "@/assets/rover/circ2026/sapere-pit-front.jpg";
-import sapereWorkbench from "@/assets/rover/circ2026/sapere-pit-workbench.jpg";
 import sponsorBanner from "@/assets/rover/circ2026/sponsor-banner.jpg";
 import meeting1 from "@/assets/rover/Rover_Design_Meeting_1.jpeg";
 import meeting3 from "@/assets/rover/Rover_Design_Meeting_3.jpeg";
@@ -18,10 +15,7 @@ import meeting from "@/assets/rover/roverprojectdesignmeeting.JPG";
 
 const gallery = [
   { src: teamPhoto, alt: "UNB Rover Team members with Sapere and the sponsor banner at CIRC 2026" },
-  { src: sapereFront, alt: "Sapere in the pits at CIRC 2026, electronics bay open" },
   { src: sapereBanner, alt: "Sapere behind the UNB Robotics sponsor banner at CIRC 2026" },
-  { src: sapereSide, alt: "Sapere's six-wheel suspension, side view" },
-  { src: sapereWorkbench, alt: "Sapere at the team's workbench during CIRC 2026" },
   { src: sponsorBanner, alt: "Thank you to our sponsors banner at CIRC 2026" },
   { src: meeting3, alt: "Sapere design meeting" },
   { src: meeting1, alt: "Sapere design meeting in Head Hall" },
@@ -65,9 +59,9 @@ const gallery = [
 
   <!-- MISSION LOG -->
   <section class="border-y border-line/10 bg-[#060608] text-white" aria-label="Sapere by the numbers">
-    <dl class="wrap grid md:grid-cols-3">
+    <dl class="wrap grid md:grid-cols-2">
       {stats.map((s, i) => (
-        <div data-reveal data-reveal-delay={i * 100} class:list={["py-10 md:px-8", i > 0 && "border-t border-white/15 md:border-t-0 md:border-l", i === 0 && "md:pl-0"]}>
+        <div data-reveal data-reveal-delay={i * 100} class:list={["py-10 md:px-8", i > 0 && "border-t border-white/15", i === 1 && "md:border-t-0", i % 2 === 1 && "md:border-l", i % 2 === 0 && "md:pl-0"]}>
           <dt class="label text-white/50">{s.label}</dt>
           <dd class="mt-2 font-display text-6xl font-bold text-rover-red-light lg:text-7xl">{s.value}</dd>
           <dd class="mt-3 max-w-xs text-sm text-white/70">{s.body}</dd>
@@ -84,7 +78,7 @@ const gallery = [
           Made possible<br /><span class="text-accent">by our sponsors.</span>
         </SectionHead>
         <p class="max-w-md text-muted lg:justify-self-end">
-          Together our sponsors and partners contributed {sapere.sponsorFunding} toward rover equipment in {sapere.year}.
+          Together our sponsors and partners contributed {sapere.sponsorFunding} toward rover equipment in {sapere.year}, plus {sapere.inKindSponsorship} in in-kind sponsorship.
         </p>
       </div>
 
@@ -155,7 +149,7 @@ const gallery = [
           ))}
         </ul>
         <div class="mt-8 flex flex-wrap gap-3">
-          <a href={MAIN_SITE} class={btnRed}>Apply on unbrobotics.ca</a>
+          <a href={APPLY_FORM} class={btnRed}>Apply now</a>
           <a href="/#faq" class={btnGhost}>Read the FAQ</a>
         </div>
       </div>

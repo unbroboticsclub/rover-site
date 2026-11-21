@@ -3,6 +3,9 @@
 
 export const MAIN_SITE = "https://unbrobotics.ca";
 
+// Google Form for joining the team / applying for a lead role.
+export const APPLY_FORM = "https://forms.gle/rZAJYoWXYu3qKEnS9";
+
 export const competition = {
   name: "Canadian International Rover Challenge",
   short: "CIRC",
@@ -17,10 +20,11 @@ export const sapere = {
   year: 2026,
   dates: "August 7–10, 2026",
   sponsorFunding: "$8,690",
+  inKindSponsorship: "$7,459.08",
 };
 
 // Where the team is based now.
-export const base = "Head Hall H302";
+export const base = "Head Hall C127";
 
 // The 2026 (Sapere) build season.
 export const meetings = {
@@ -34,34 +38,38 @@ export const stats = [
   { value: "60+", label: "Active Participants", body: "Students from across UNB designing CAD, writing firmware, and building system diagrams." },
   { value: "200+", label: "Hours of Combined Work", body: "Mechanical prototyping, design reviews, electrical architecture, and software development." },
   { value: sapere.sponsorFunding, label: "Sponsor & Partner Funding", body: "Contributed by our sponsors and partners toward Sapere's rover equipment." },
+  { value: sapere.inKindSponsorship, label: "In-Kind Sponsorship", body: "Equipment, materials, and services donated by our sponsors and partners toward Sapere (CAD)." },
 ];
 
 // Lead positions we're currently recruiting for.
 export const roles = [
-  { title: "Software Lead", focus: "Autonomy, navigation, firmware" },
-  { title: "Mechanical Lead", focus: "Chassis, suspension, robotic arm" },
-  { title: "Electrical Lead", focus: "Power systems, sensors, wiring" },
-  { title: "Science Lead", focus: "Life detection, geology sampling" },
+  { title: "Mobility Lead", focus: "Chassis, wheels, drivetrain, and motor control" },
+  { title: "Manipulation Lead", focus: "Arm, gripper, interchangeable tools, and arm controls" },
+  { title: "Power & Electrical Lead", focus: "Battery, power distribution, wiring harnesses, connectors, and emergency stop" },
+  { title: "Autonomy & Navigation Lead", focus: "Localization, route planning, and autonomous driving" },
+  { title: "Communications & Operator Systems Lead", focus: "Rover radios, antennas, base station, video feeds, telemetry, and operator controls" },
+  { title: "Project Manager", focus: "Deadlines and making sure requirements are met" },
 ];
 
-// The four subsystem teams that build each rover.
+// The five subsystem teams that build each rover (matching the lead roles above).
 export const subsystems = [
-  { name: "Mechanical", body: "Chassis, suspension and the robotic arm, from CAD to machined parts." },
-  { name: "Electrical", body: "Power systems, sensors and wiring that keep every motor and board alive." },
-  { name: "Software", body: "Autonomy, navigation and firmware, from the drive controller up." },
-  { name: "Science", body: "Life detection and geology sampling for the science mission." },
+  { name: "Mobility", body: "Chassis, wheels, drivetrain and motor control that get the rover across rough terrain." },
+  { name: "Manipulation", body: "The arm, gripper and interchangeable tools, plus the controls that drive them." },
+  { name: "Power & Electrical", body: "Battery, power distribution, wiring harnesses, connectors and the emergency stop." },
+  { name: "Autonomy & Navigation", body: "Localization, route planning and autonomous driving." },
+  { name: "Communications", body: "Radios, antennas, the base station, video feeds, telemetry and operator controls." },
 ];
 
 export const faqs = [
   {
     question: "What is Project Iterum?",
     answer:
-      "Iterum is this year's fully custom rover, designed and built by UNB Robotics for the Canadian International Rover Challenge. Every subsystem, from mechanical and electrical to software, is built entirely by UNB students.",
+      "Iterum is this year's fully custom rover, designed and built by UNB Robotics for the Canadian International Rover Challenge. Every subsystem, from mobility and manipulation to power, autonomy, and communications, is built entirely by UNB students.",
   },
   {
     question: "Is the team recruiting?",
     answer:
-      "Yes! We're currently recruiting leads for software, mechanical, electrical, and science. General members are always welcome too.",
+      "Yes! We're currently recruiting leads for mobility, manipulation, power and electrical, autonomy and navigation, and communications and operator systems, plus a project manager. General members are always welcome too.",
   },
   {
     question: "Who can join the rover team?",
@@ -71,7 +79,7 @@ export const faqs = [
   {
     question: "Do I need prior experience?",
     answer:
-      "No experience is required. Our electrical, mechanical, and software team leads are always around to help you get started.",
+      "No experience is required. Our subsystem leads are always around to help you get started.",
   },
   {
     question: "When and where does the team meet?",
