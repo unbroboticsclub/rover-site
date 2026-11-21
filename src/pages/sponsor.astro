@@ -7,7 +7,6 @@ import {
 } from "@/data/rover.js";
 import { btnRed, btnGhost, btnPrimary } from "@/styles/classes.js";
 
-const sysCodes = ["MOB", "MANIP", "PWR", "NAV", "COMMS"];
 
 const record = [
   { value: "60+", label: "Students on Sapere" },
@@ -129,13 +128,13 @@ const field =
   <section class="border-t border-line/10 bg-panel py-24 lg:py-32">
     <div class="wrap">
       <SectionHead index="02" label="The build">
-        Five subsystems.<br /><span class="text-accent">One rover.</span>
+        Six subsystems.<br /><span class="text-accent">One rover.</span>
       </SectionHead>
-      <ol class="mt-14 grid border-t border-line/15 sm:grid-cols-2 lg:grid-cols-5">
+      <ol class="mt-14 grid gap-px overflow-hidden rounded-sm bg-line/15 ring-1 ring-line/15 sm:grid-cols-2 lg:grid-cols-3">
         {subsystems.map((s, i) => (
-          <li data-reveal data-reveal-delay={i * 90} class="border-b border-line/15 py-8 sm:px-6 sm:[&:nth-child(odd)]:pl-0 lg:border-b-0 lg:[&:not(:first-child)]:border-l lg:px-5 lg:[&:nth-child(odd):not(:first-child)]:pl-5">
-            <span class="label text-accent">SYS-{String(i + 1).padStart(2, "0")} · {sysCodes[i]}</span>
-            <h3 class="mt-3 break-words font-display text-3xl font-bold uppercase text-ink lg:text-2xl">{s.name}</h3>
+          <li data-reveal data-reveal-delay={(i % 3) * 90} class="bg-panel p-7">
+            <span class="label text-accent">SYS-{String(i + 1).padStart(2, "0")} · {s.code}</span>
+            <h3 class="mt-3 break-words font-display text-3xl font-bold uppercase text-ink">{s.name}</h3>
             <p class="mt-3 text-sm text-muted">{s.body}</p>
           </li>
         ))}

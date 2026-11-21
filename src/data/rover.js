@@ -80,13 +80,14 @@ export const roles = [
 export const allLeadDuties =
   "Onboard their members, maintain their team's introduction document and dossier, keep current designs and test instructions easy to find, and submit part requests with specifications, cost, and date needed.";
 
-// The five subsystem teams that build each rover (matching the lead roles above).
+// The subsystem teams that build each rover (matching the lead roles above). `code` is the short tag shown on the site.
 export const subsystems = [
-  { name: "Mobility", body: "Chassis, wheels, drivetrain and motor control that get the rover across rough terrain." },
-  { name: "Manipulation", body: "The arm, gripper and interchangeable tools, plus the controls that drive them." },
-  { name: "Power & Electrical", body: "Battery, power distribution, wiring harnesses, connectors and the emergency stop." },
-  { name: "Autonomy & Navigation", body: "Localization, route planning and autonomous driving." },
-  { name: "Communications", body: "Radios, antennas, the base station, video feeds, telemetry and operator controls." },
+  { name: "Mobility", code: "MOB", body: "Structural chassis, suspension, wheels and drivetrain, with motor control and tuning, tested for traction, braking and payload capacity." },
+  { name: "Manipulation", code: "MANIP", body: "The arm, gripper and interchangeable tools, plus joint controls, tested for reach, lifting capacity and grasping." },
+  { name: "Mechanical Integration", code: "INTEG", body: "The master Fusion assembly: component layout, enclosures, brackets, mounting points, ventilation, cable routing and access for repairs." },
+  { name: "Power & Electrical", code: "PWR", body: "Battery, power distribution, fuses and wiring, harnesses and connectors, emergency-stop hardware and STM32 Nucleo firmware." },
+  { name: "Autonomy & Navigation", code: "NAV", body: "Localization, route planning, obstacle avoidance and autonomous driving, with a ROS rover model for visualization in RViz." },
+  { name: "Communications & Operator Systems", code: "COMMS", body: "Radios, antennas, the base station, video feeds, telemetry, operator controls and the onboard computer's link to the Nucleo." },
 ];
 
 export const faqs = [
