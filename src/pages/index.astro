@@ -40,7 +40,7 @@ const telemetry = [
     <!-- Sky fades to space, with a live starfield -->
     <div class="absolute inset-x-0 top-0 -z-10 h-[42%] bg-gradient-to-b from-[#060608] via-[#060608]/85 to-transparent" aria-hidden="true"></div>
     <div class="absolute inset-x-0 top-0 -z-10 h-[50%]">
-      <Starfield fade density={2.2} depth={36} />
+      <Starfield fade az={180} alt={30} fov={95} depth={36} />
     </div>
 
     <!-- Cursor reticle (desktop only) -->
@@ -225,7 +225,7 @@ const telemetry = [
 
   <!-- 03 JOIN: always deep space, with a red planet rising -->
   <section id="join" class="relative isolate scroll-mt-20 overflow-hidden bg-[#060608] pb-56 pt-24 text-white lg:pb-72 lg:pt-32">
-    <div class="absolute inset-0 -z-20"><Starfield density={1.8} depth={30} /></div>
+    <div class="absolute inset-0 -z-20"><Starfield az={0} alt={40} fov={110} depth={30} /></div>
     <div class="absolute inset-0 -z-10" data-parallax="10" aria-hidden="true">
       <div class="planet top-[calc(100%-11rem)] w-[220%] sm:w-[160%] lg:top-[calc(100%-14rem)] lg:w-[120%]"></div>
     </div>

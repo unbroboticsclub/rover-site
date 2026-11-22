@@ -1,26 +1,75 @@
 ---
-// Interactive starfield: three depth layers that drift against the cursor (parallax), twinkle,
-// and the occasional shooting star. Fills its positioned parent. Stays still for reduced motion.
+// Live starfield: the real night sky over Fredericton, NB, right now. Star positions come from the
+// Yale Bright Star / Hipparcos catalogue (via d3-celestial, BSD-3), turned into altitude and azimuth
+// for the current time, so the sky turns slowly in real time and the constellations match the ones
+// overhead. Each instance looks in its own direction. Moving the cursor pans the view a little.
+// Stars twinkle and there is the occasional shooting star. Stays still for reduced motion.
 interface Props {
   class?: string;
-  /** Stars per 10,000 px² of canvas. */
+  /** Kept for older call sites. Star count now comes from the real sky. */
   density?: number;
-  /** Max parallax shift in px for the nearest layer. */
+  /** How far the cursor can pan the view, in degrees. */
   depth?: number;
   /** Fade the field out towards the bottom (e.g. above a horizon). */
   fade?: boolean;
+  /** Compass direction to look in, in degrees (0 = north, 90 = east, 180 = south). */
+  az?: number;
+  /** Height above the horizon at the centre of the view, in degrees (90 = straight up). */
+  alt?: number;
+  /** Field of view across the longer side, in degrees. */
+  fov?: number;
+  /** Draw faint constellation lines. */
+  lines?: boolean;
 }
-const { class: className = "", density = 1.4, depth = 28, fade = false } = Astro.props;
+const { class: className = "", depth = 28, fade = false, az = 180, alt = 35, fov = 100, lines = true } = Astro.props;
 ---
 
 <canvas
   class:list={["starfield pointer-events-none absolute inset-0 size-full", fade && "[mask-image:linear-gradient(black_30%,transparent)]", className]}
-  data-density={density}
   data-depth={depth}
+  data-az={az}
+  data-alt={alt}
+  data-fov={fov}
+  data-lines={lines ? "1" : "0"}
   aria-hidden="true"></canvas>
 
 <script>
-  type Star = { x: number; y: number; z: number; r: number; tw: number; sp: number; red: boolean };
+  import sky from "@/data/sky.json";
+
+  // Fredericton, NB (UNB campus).
+  const LAT = 45.9456, LON = -66.6413;
+  const D = Math.PI / 180;
+  const sinLat = Math.sin(LAT * D), cosLat = Math.cos(LAT * D);
+
+  // Catalogue: flat [ra, dec, mag, b-v] per star; lines are flat [ra, dec, ...] polylines.
+  type Star = { ra: number; sd: number; cd: number; r: number; a: number; color: string; tw: number; sp: number };
+  const stars: Star[] = [];
+  for (let i = 0; i < sky.stars.length; i += 4) {
+    const [ra, dec, mag, bv] = sky.stars.slice(i, i + 4);
+    stars.push({
+      ra: ra * D,
+      sd: Math.sin(dec * D),
+      cd: Math.cos(dec * D),
+      r: Math.max(0.6, 2.8 - mag * 0.4),
+      a: Math.min(1, Math.max(0.42, 1.1 - mag * 0.12)),
+      color: bv > 1.45 ? "#ff5a5f" : bv > 1.0 ? "#ffe2c4" : bv < 0.05 ? "#d6e4ff" : "#ffffff",
+      tw: Math.random() * Math.PI * 2,
+      sp: 0.6 + Math.random() * 1.8,
+    });
+  }
+  const lineSegs = sky.lines.map((flat) => {
+    const pts: { ra: number; sd: number; cd: number }[] = [];
+    for (let i = 0; i < flat.length; i += 2) pts.push({ ra: flat[i] * D, sd: Math.sin(flat[i + 1] * D), cd: Math.cos(flat[i + 1] * D) });
+    return pts;
+  });
+
+  /** Local sidereal time in radians for a given moment. */
+  function lst(ms: number) {
+    const jd = ms / 86400000 + 2440587.5;
+    const gmst = 280.46061837 + 360.98564736629 * (jd - 2451545.0);
+    return (((gmst + LON) % 360) + 360) % 360 * D;
+  }
+
   type Meteor = { x: number; y: number; vx: number; vy: number; life: number };
 
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -36,10 +85,13 @@ const { class: className = "", density = 1.4, depth = 28, fade = false } = Astro
   function setup(canvas: HTMLCanvasElement) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-    const density = Number(canvas.dataset.density) || 1.4;
-    const maxShift = Number(canvas.dataset.depth) || 28;
+    // `depth` used to be a pixel shift; treat it as a gentle pan in degrees.
+    const pan = Math.min(10, (Number(canvas.dataset.depth) || 28) / 4);
+    const az0 = Number(canvas.dataset.az ?? 180);
+    const alt0 = Number(canvas.dataset.alt ?? 35);
+    const fov = Number(canvas.dataset.fov) || 100;
+    const showLines = canvas.dataset.lines !== "0";
     let w = 0, h = 0, dpr = 1;
-    let stars: Star[] = [];
     let meteor: Meteor | null = null;
     let nextMeteor = performance.now() + 3000 + Math.random() * 5000;
     let visible = false;
@@ -52,45 +104,78 @@ const { class: className = "", density = 1.4, depth = 28, fade = false } = Astro
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.round((w * h) / 10000 * density);
-      // Pad the field so parallax never reveals an empty edge.
-      const pad = maxShift * 2;
-      stars = Array.from({ length: count }, () => {
-        const z = Math.random() ** 2; // most stars far away
-        return {
-          x: Math.random() * (w + pad * 2) - pad,
-          y: Math.random() * (h + pad * 2) - pad,
-          z,
-          r: 0.35 + z * 1.25,
-          tw: Math.random() * Math.PI * 2,
-          sp: 0.6 + Math.random() * 1.8,
-          red: Math.random() < 0.06,
-        };
-      });
       if (reduce) draw(0);
+    }
+
+    // View basis in east/north/up coordinates, rebuilt each frame from the panned direction.
+    let fx = 0, fy = 0, fz = 0, rx = 0, ry = 0, ux = 0, uy = 0, uz = 0, scale = 1, theta = 0;
+    function setView(azDeg: number, altDeg: number) {
+      const a = azDeg * D, e = Math.max(-89.9, Math.min(89.9, altDeg)) * D;
+      fx = Math.sin(a) * Math.cos(e); fy = Math.cos(a) * Math.cos(e); fz = Math.sin(e);
+      rx = Math.cos(a); ry = -Math.sin(a);
+      ux = -Math.sin(a) * Math.sin(e); uy = -Math.cos(a) * Math.sin(e); uz = Math.cos(e);
+      // Stereographic projection: the longer side spans `fov` degrees.
+      scale = Math.max(w, h) / 2 / Math.tan((fov * D) / 4);
+      theta = lst(Date.now());
+    }
+
+    /** Project a catalogue point to screen space. Returns false if below the horizon or behind. */
+    const out = { x: 0, y: 0 };
+    function project(ra: number, sd: number, cd: number) {
+      const ha = theta - ra;
+      const ch = Math.cos(ha);
+      const ve = -cd * Math.sin(ha);
+      const vn = sd * cosLat - cd * ch * sinLat;
+      const vu = sd * sinLat + cd * ch * cosLat;
+      if (vu < -0.02) return false;
+      const d = ve * fx + vn * fy + vu * fz;
+      if (d < -0.3) return false;
+      const k = scale / (1 + d);
+      out.x = w / 2 + (ve * rx + vn * ry) * k;
+      out.y = h / 2 - (ve * ux + vn * uy + vu * uz) * k;
+      return true;
     }
 
     function draw(t: number) {
       ctx!.clearRect(0, 0, w, h);
-      const ox = -pointer.x * maxShift, oy = -pointer.y * maxShift;
+      setView(az0 + pointer.x * pan, alt0 - pointer.y * pan * 0.6);
+
+      if (showLines) {
+        ctx!.globalAlpha = 0.13;
+        ctx!.strokeStyle = "#ffffff";
+        ctx!.lineWidth = 0.7;
+        ctx!.beginPath();
+        for (const seg of lineSegs) {
+          let pen = false;
+          for (const p of seg) {
+            if (project(p.ra, p.sd, p.cd) && out.x > -w && out.x < 2 * w && out.y > -h && out.y < 2 * h) {
+              if (pen) ctx!.lineTo(out.x, out.y); else ctx!.moveTo(out.x, out.y);
+              pen = true;
+            } else pen = false;
+          }
+        }
+        ctx!.stroke();
+      }
+
       for (const s of stars) {
-        const shift = 0.15 + s.z * 0.85;
-        const x = s.x + ox * shift, y = s.y + oy * shift;
-        if (x < -2 || y < -2 || x > w + 2 || y > h + 2) continue;
-        const twinkle = reduce ? 0.8 : 0.55 + 0.45 * Math.sin(s.tw + t * 0.001 * s.sp);
-        ctx!.globalAlpha = (0.35 + s.z * 0.65) * twinkle;
-        ctx!.fillStyle = s.red ? "#ff5a5f" : "#ffffff";
+        if (!project(s.ra, s.sd, s.cd)) continue;
+        const { x, y } = out;
+        if (x < -4 || y < -4 || x > w + 4 || y > h + 4) continue;
+        const twinkle = reduce ? 0.85 : 0.6 + 0.4 * Math.sin(s.tw + t * 0.001 * s.sp);
+        ctx!.globalAlpha = s.a * twinkle;
+        ctx!.fillStyle = s.color;
         ctx!.beginPath();
         ctx!.arc(x, y, s.r, 0, Math.PI * 2);
         ctx!.fill();
-        // Soft glow on the nearest stars.
-        if (s.z > 0.8) {
-          ctx!.globalAlpha *= 0.25;
+        // Soft glow on the brightest stars.
+        if (s.r > 1.6) {
+          ctx!.globalAlpha *= 0.22;
           ctx!.beginPath();
-          ctx!.arc(x, y, s.r * 3, 0, Math.PI * 2);
+          ctx!.arc(x, y, s.r * 3.2, 0, Math.PI * 2);
           ctx!.fill();
         }
       }
+
       if (meteor) {
         const m = meteor;
         const tail = 90;
@@ -144,6 +229,8 @@ const { class: className = "", density = 1.4, depth = 28, fade = false } = Astro
     }
 
     new ResizeObserver(resize).observe(canvas);
+    // Reduced motion: no animation, but still keep the sky current once a minute.
+    if (reduce) setInterval(() => { if (visible && !document.hidden) draw(0); }, 60000);
     // Only animate while on screen.
     new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;

@@ -31,7 +31,7 @@ const field =
 >
   <!-- HERO -->
   <section class="relative isolate bg-grid pb-16 pt-32 lg:pb-24 lg:pt-40">
-    <div class="absolute inset-0 -z-10 hidden dark:block"><Starfield fade density={1.6} /></div>
+    <div class="absolute inset-0 -z-10 hidden dark:block"><Starfield fade az={270} alt={30} /></div>
     <div class="wrap">
       <p class="label text-subtle">
         <span class="text-accent">Mission 02 · Seeking sponsors</span> · {competition.short} {iterum.year} · {iterum.dates}
@@ -91,7 +91,7 @@ const field =
 
   <!-- THE NAME -->
   <section class="relative isolate overflow-hidden bg-[#060608] py-24 text-white lg:py-32" aria-label={`Why we named it ${currentRover}`}>
-    <div class="absolute inset-0 -z-10"><Starfield fade density={1.4} /></div>
+    <div class="absolute inset-0 -z-10"><Starfield fade az={45} alt={50} /></div>
     <div class="wrap grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:items-center">
       <figure data-reveal>
         <p class="label text-white/50">Why the name</p>
